@@ -3,8 +3,9 @@ const IS_DEV = process.env.APP_VARIANT === 'development'
 module.exports = {
     expo: {
         name: IS_DEV ? 'ChatterUI (DEV)' : 'ChatterUI',
+        owner: 'VShenn',
         newArchEnabled: true,
-        slug: 'ChatterUI',
+        slug: 'ChatterUI_zhCN',
         version: '0.9.0',
         orientation: 'default',
         icon: './assets/images/icon.png',
@@ -86,10 +87,10 @@ module.exports = {
             [
                 'expo-camera',
                 {
-                    cameraPermission: 'Allow ChatterUI to access your camera',
-                },
-            ],
-            ['expo-sqlite', { withSQLiteVecExtension: true }],
+                    cameraPermission: 'Allow ChatterUI to access your camera'，
+                }，
+            ]，
+            ['expo-sqlite'， { withSQLiteVecExtension: true }],
             'expo-localization',
             'expo-router',
             'expo-font',
@@ -108,7 +109,7 @@ module.exports = {
                 origin: false,
             },
             eas: {
-                projectId: 'd588a96a-5eb0-457a-85bc-e21acfdc60e9',
+
             },
         },
     },
