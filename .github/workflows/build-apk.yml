@@ -22,14 +22,6 @@ jobs:
       - name: Install EAS CLI globally
         run: npm install -g eas-cli
 
-      - name: Initialize EAS project (non-interactive)
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: |
-          # 生成一个随机的新项目ID
-          PROJECT_ID=$(uuidgen | tr '[:upper:]' '[:lower:]')
-          eas init --id $PROJECT_ID --force --non-interactive
-
       - name: Build Android APK (preview profile)
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
