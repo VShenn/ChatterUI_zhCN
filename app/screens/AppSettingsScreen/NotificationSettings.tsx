@@ -23,9 +23,9 @@ const NotificationSettings = () => {
 
     return (
         <View>
-            <SectionTitle>Notifications</SectionTitle>
+            <SectionTitle>通知</SectionTitle>
             <ThemedSwitch
-                label="Enable Notifications"
+                label="启用通知"
                 value={notificationOnGenerate}
                 onChangeValue={async (value) => {
                     if (!value) {
@@ -38,29 +38,29 @@ const NotificationSettings = () => {
                         setNotificationOnGenerate(true)
                     }
                 }}
-                description="Sends notifications when the app is in the background"
+                description="应用在后台时发送通知"
             />
             {notificationOnGenerate && (
                 <View>
                     <ThemedSwitch
-                        label="Notification Sound"
+                        label="通知声音"
                         value={notificationSound}
                         onChangeValue={setNotificationSound}
                         description=""
                     />
 
                     <ThemedSwitch
-                        label="Notification Vibration"
+                        label="通知震动"
                         value={notificationVibrate}
                         onChangeValue={setNotificationVibrate}
                         description=""
                     />
 
                     <ThemedSwitch
-                        label="Show Text In Notification"
+                        label="在通知中显示文本"
                         value={showNotificationText}
                         onChangeValue={setShowNotificationText}
-                        description="Shows generated messages in notifications"
+                        description="在通知中显示生成的消息内容"
                     />
                 </View>
             )}

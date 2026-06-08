@@ -68,23 +68,23 @@ const SamplerManagerScreen = () => {
             `${currentConfig.name}.json`,
             'utf8'
         ).then(() => {
-            Logger.infoToast('Downloaded Sampler Configuration!')
+            Logger.infoToast('采样器配置已下载！')
         })
     }
 
     const handleDeleteSampler = () => {
         if (configList.length === 1) {
-            Logger.errorToast(`Cannot Delete Last Configuration`)
+            Logger.errorToast(`无法删除最后一个配置`)
             return false
         }
 
         Alert.alert({
-            title: `Delete Sampler`,
-            description: `Are you sure you want to delete '${currentConfig.name}'?`,
+            title: `删除采样器`,
+            description: `确定要删除“${currentConfig.name}”吗？`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete Sampler',
+                    label: '删除采样器',
                     onPress: async () => {
                         deleteSamplerConfig(currentConfigIndex)
                     },
@@ -104,7 +104,7 @@ const SamplerManagerScreen = () => {
             placement="bottom"
             buttons={[
                 {
-                    label: 'Create Sampler',
+                    label: '创建采样器',
                     icon: 'file-add',
                     onPress: (close) => {
                         setShowNewSampler(true)
@@ -112,7 +112,7 @@ const SamplerManagerScreen = () => {
                     },
                 },
                 {
-                    label: 'Export Sampler',
+                    label: '导出采样器',
                     icon: 'download',
                     onPress: (close) => {
                         handleExportSampler()
@@ -120,7 +120,7 @@ const SamplerManagerScreen = () => {
                     },
                 },
                 /*{
-                    label: 'Import Sampler',
+                    label: '导入采样器',
                     icon: 'upload',
                     onPress: (close) => {
                         handleImportSampler()
@@ -128,7 +128,7 @@ const SamplerManagerScreen = () => {
                     },
                 },*/
                 {
-                    label: 'Delete Sampler',
+                    label: '删除采样器',
                     icon: 'delete',
                     onPress: (close) => {
                         if (handleDeleteSampler()) close()
@@ -142,25 +142,25 @@ const SamplerManagerScreen = () => {
     return (
         <SafeAreaView edges={['bottom']} style={{ flex: 1 }} key={currentConfig.name}>
             <InputSheet
-                title="New Sampler Preset"
+                title="新建采样器预设"
                 visible={showNewSampler}
                 setVisible={setShowNewSampler}
                 onConfirm={(text: string) => {
                     if (text === '') {
-                        Logger.errorToast(`Sampler name cannot be empty`)
+                        Logger.errorToast(`采样器名称不能为空`)
                         return
                     }
 
                     for (const item of configList)
                         if (item.name === text) {
-                            Logger.errorToast(`Sampler name already exists.`)
+                            Logger.errorToast(`采样器名称已存在。`)
                             return
                         }
                     addSamplerConfig({ name: text, data: currentConfig.data })
                 }}
             />
 
-            <HeaderTitle title="Samplers" />
+            <HeaderTitle title="采样器" />
             <HeaderButton headerRight={headerRight} />
 
             <DropdownSheet
@@ -186,7 +186,7 @@ const SamplerManagerScreen = () => {
                         if (!samplerItem)
                             return (
                                 <Text key={item.samplerID} style={styles.unsupported}>
-                                    Sampler ID {`[${item.samplerID}]`} Not Supported
+                                    采样器 ID `[{item.samplerID}]` 不受支持
                                 </Text>
                             )
                         switch (samplerItem.inputType) {
@@ -274,7 +274,7 @@ const SamplerManagerScreen = () => {
                             //case 'custom':
                             default:
                                 return (
-                                    <Text style={styles.warningText}>Invalid Sampler Field!</Text>
+                                    <Text style={styles.warningText}>无效的采样器字段！</Text>
                                 )
                         }
                     })}
@@ -288,10 +288,10 @@ const SamplerManagerScreen = () => {
                         justifyContent: 'center',
                         rowGap: 12,
                     }}>
-                    <Text style={styles.noSamplersText}>No Samplers to Configure</Text>
+                    <Text style={styles.noSamplersText}>无可配置的采样器</Text>
                     {appMode === 'remote' && (
                         <Text style={styles.noSamplersText}>
-                            {`You probably haven't added an API connection yet`}
+                            {`您可能尚未添加 API 连接`}
                         </Text>
                     )}
                 </View>

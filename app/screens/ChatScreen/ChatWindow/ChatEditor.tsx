@@ -91,7 +91,7 @@ const ChatEditor = () => {
                     justifyContent: 'space-between',
                 }}>
                 <ThemedButton
-                    label="Delete"
+                    label="删除"
                     iconName="delete"
                     onPress={handleDeleteMessage}
                     variant="critical"
@@ -99,11 +99,11 @@ const ChatEditor = () => {
                 <ThemedButton
                     iconName="reload"
                     variant="tertiary"
-                    label="Reset"
+                    label="重置"
                     onPress={() => swipeText && setPlaceholderText(swipeText)}
                 />
                 <ThemedButton
-                    label="Confirm"
+                    label="确认"
                     iconName="check"
                     onPress={handleEditMessage}
                     variant="secondary"

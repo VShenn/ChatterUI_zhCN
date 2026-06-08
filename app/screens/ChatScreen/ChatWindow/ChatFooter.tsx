@@ -30,8 +30,8 @@ const ChatFooter = () => {
                         fontSize: fontSize.s,
                     }}>
                     {chatLength !== undefined && chatLength <= 1
-                        ? 'Send a message to begin!'
-                        : 'Start of chat'}
+                        ? '发送一条消息开始！'
+                        : '聊天开始'}
                 </Text>
             </View>
         </View>

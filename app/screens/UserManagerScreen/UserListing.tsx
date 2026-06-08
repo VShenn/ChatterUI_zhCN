@@ -33,17 +33,17 @@ const UserListing: React.FC<CharacterListingProps> = ({ user }) => {
     const handleDeleteCard = async (close: () => void) => {
         close()
         Alert.alert({
-            title: 'Delete User',
-            description: `Are you sure you want to delete '${user.name}'?\nThis cannot be undone.`,
+            title: '删除用户',
+            description: `确定要删除“${user.name}”吗？\n此操作不可撤销。`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete User',
+                    label: '删除用户',
                     onPress: async () => {
                         await Characters.db.mutate.deleteCard(user.id)
                         await Characters.db.query.cardList('user').then(async (list) => {
                             if (list.length === 0) {
-                                const defaultName = 'User'
+                                const defaultName = '用户'
                                 const id = await Characters.db.mutate.createCard(
                                     defaultName,
                                     'user'
@@ -63,12 +63,12 @@ const UserListing: React.FC<CharacterListingProps> = ({ user }) => {
 
     const handleCloneCard = (close: () => void) => {
         Alert.alert({
-            title: `Clone User`,
-            description: `Are you sure you want to clone '${user.name}'?`,
+            title: `克隆用户`,
+            description: `确定要克隆“${user.name}”吗？`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Clone User',
+                    label: '克隆用户',
                     onPress: async () => {
                         close()
                         await Characters.db.mutate.duplicateCard(user.id)
@@ -88,12 +88,12 @@ const UserListing: React.FC<CharacterListingProps> = ({ user }) => {
             placement="center"
             buttons={[
                 {
-                    label: 'Clone',
+                    label: '克隆',
                     icon: 'copy',
                     onPress: handleCloneCard,
                 },
                 {
-                    label: 'Delete',
+                    label: '删除',
                     icon: 'delete',
                     variant: 'warning',
                     onPress: handleDeleteCard,

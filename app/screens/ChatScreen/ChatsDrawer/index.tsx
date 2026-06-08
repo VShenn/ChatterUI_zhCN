@@ -48,7 +48,7 @@ const ChatsDrawer = () => {
     const search = useDebounce(async (query: string, charId?: number) => {
         if (!charId || !query) return
         const results = await Chats.db.query.searchChat(query, charId).catch((e) => {
-            Logger.error('Failed to run query: ' + e)
+            Logger.error('执行查询失败：' + e)
             return []
         })
         setSearchResults(results.sort((a, b) => b.sendDate.getTime() - a.sendDate.getTime()))
@@ -71,7 +71,7 @@ const ChatsDrawer = () => {
         <Drawer.Body drawerID={Drawer.ID.CHATLIST} drawerStyle={styles.drawer} direction="right">
             <View
                 style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 4 }}>
-                <Text style={styles.drawerTitle}>{showSearchBar ? 'Search' : 'Chats'}</Text>
+                <Text style={styles.drawerTitle}>{showSearchBar ? '搜索' : '聊天'}</Text>
                 <ThemedButton
                     variant="tertiary"
                     iconName={showSearchBar ? 'backward' : 'search'}
@@ -84,7 +84,7 @@ const ChatsDrawer = () => {
             <Animated.View key={showSearchBar + ''} entering={FadeIn} exiting={FadeOut}>
                 {showSearchBar && (
                     <ThemedTextInput
-                        placeholder="Search for message..."
+                        placeholder="搜索消息..."
                         containerStyle={{ flex: 0, marginTop: 12, marginBottom: 12 }}
                         value={searchQuery}
                         autoCorrect={false}
@@ -111,14 +111,14 @@ const ChatsDrawer = () => {
                         />
                     </Animated.View>
                     <Animated.View entering={FadeIn} exiting={FadeOut}>
-                        <ThemedButton label="Start New Chat" onPress={handleCreateChat} />
+                        <ThemedButton label="开始新聊天" onPress={handleCreateChat} />
                     </Animated.View>
                 </>
             )}
             {showSearchResults && (
                 <Animated.View entering={FadeIn.duration(200)} style={styles.listContainer}>
                     {searchResults.length > 0 && (
-                        <Text style={styles.resultCount}>Results: {searchResults.length}</Text>
+                        <Text style={styles.resultCount}>结果：{searchResults.length}</Text>
                     )}
                     <FlashList
                         data={searchResults}
@@ -134,7 +134,7 @@ const ChatsDrawer = () => {
                         removeClippedSubviews={false}
                         ListEmptyComponent={() => (
                             <View style={styles.emptyContainer}>
-                                <Text style={styles.emptyText}>No Results</Text>
+                                <Text style={styles.emptyText}>无结果</Text>
                             </View>
                         )}
                     />

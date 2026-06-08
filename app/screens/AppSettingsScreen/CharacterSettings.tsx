@@ -10,18 +10,18 @@ import TagHiderSettings from './TagHiderSettings'
 const CharacterSettings = () => {
     return (
         <View style={{ rowGap: 8 }}>
-            <SectionTitle>Character Management</SectionTitle>
+            <SectionTitle>角色管理</SectionTitle>
             <ThemedButton
-                label="Regenerate Default Card"
+                label="重新生成默认角色卡"
                 variant="secondary"
                 onPress={() => {
                     Alert.alert({
-                        title: `Regenerate Default Card`,
-                        description: `This will add the default AI Bot card to your character list.`,
+                        title: `重新生成默认角色卡`,
+                        description: `这将在您的角色列表中添加默认的 AI 机器人卡。`,
                         buttons: [
-                            { label: 'Cancel' },
+                            { label: '取消' },
                             {
-                                label: 'Create Default Card',
+                                label: '创建默认角色卡',
                                 onPress: async () => await Characters.createDefaultCard(),
                             },
                         ],

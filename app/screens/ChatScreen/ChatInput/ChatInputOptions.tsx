@@ -24,7 +24,7 @@ const ChatOptions = () => {
                         close()
                         router.back()
                     },
-                    label: 'Main Menu',
+                    label: '主菜单',
                     icon: 'backward',
                 },
                 {
@@ -32,7 +32,7 @@ const ChatOptions = () => {
                         close()
                         router.push('/screens/CharacterEditorScreen')
                     },
-                    label: 'Edit Character',
+                    label: '编辑角色',
                     icon: 'edit',
                 },
                 {
@@ -40,7 +40,7 @@ const ChatOptions = () => {
                         setShowChat(true)
                         close()
                     },
-                    label: 'Chat History',
+                    label: '聊天历史',
                     icon: 'paper-clip',
                 },
             ]}

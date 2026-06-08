@@ -30,7 +30,7 @@ const ChatModelName = () => {
                     flex: 1,
                     color: model ? color.primary._700 : color.text._400,
                 }}>
-                {model ? model.name : 'No Model Loaded'}
+                {model ? model.name : '未加载模型'}
             </Text>
             <TouchableOpacity
                 onPress={() => router.push('/screens/ModelManagerScreen')}

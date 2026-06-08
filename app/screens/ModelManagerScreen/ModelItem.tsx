@@ -52,18 +52,18 @@ const ModelItem: React.FC<ModelItemProps> = ({
     const isInvalid = Model.isInitialEntry(item)
     const handleDeleteModel = () => {
         Alert.alert({
-            title: 'Delete Model',
+            title: '删除模型',
             description:
-                `Are you sure you want to delete "${item.name}"?\n\nThis cannot be undone!` +
+                `确定要删除“${item.name}”吗？\n\n此操作不可撤销！` +
                 (!isInvalid
                     ? !item.file_path.startsWith('content')
-                        ? `\n\nThis operation will clear up ${readableFileSize(item.file_size)}`
-                        : '\n\n(This will not delete external model files, just this entry)'
+                        ? `\n\n此操作将释放 ${readableFileSize(item.file_size)} 空间`
+                        : '\n\n（这不会删除外部模型文件，仅删除本条目）'
                     : ''),
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete Model',
+                    label: '删除模型',
                     onPress: async () => {
                         if (modelId === item.id) {
                             await unloadModel()
@@ -89,11 +89,11 @@ const ModelItem: React.FC<ModelItemProps> = ({
     const loadToggle = isLoaded ? modelLoading || modelImporting : disable
 
     const tags = [
-        item.params === 'N/A' ? 'No Param Size' : item.params,
+        item.params === 'N/A' ? '无参数量' : item.params,
         quant,
         readableFileSize(item.file_size),
         item.architecture,
-        item.file_path.startsWith('content') ? 'External' : 'Internal',
+        item.file_path.startsWith('content') ? '外部' : '内部',
     ]
 
     return (
@@ -104,7 +104,7 @@ const ModelItem: React.FC<ModelItemProps> = ({
                 onConfirm={async (name) => {
                     await Model.updateName(name, item.id)
                 }}
-                title="Rename Model"
+                title="重命名模型"
                 defaultValue={item.name}
             />
 
@@ -122,13 +122,13 @@ const ModelItem: React.FC<ModelItemProps> = ({
             )}
             {isInvalid && (
                 <View style={styles.tagContainer}>
-                    <Text style={styles.tag}>Model is Invalid</Text>
+                    <Text style={styles.tag}>模型无效</Text>
                 </View>
             )}
             {!isInvalid && !isMMPROJ && (
-                <Text style={styles.subtitle}>Context Length: {item.context_length}</Text>
+                <Text style={styles.subtitle}>上下文长度：{item.context_length}</Text>
             )}
-            <Text style={styles.subtitle}>File: {item.file.replace('.gguf', '')}</Text>
+            <Text style={styles.subtitle}>文件：{item.file.replace('.gguf', '')}</Text>
             <View style={styles.buttonContainer}>
                 {!isMMPROJ && mmprojList.length > 0 && (
                     <TouchableOpacity
@@ -203,7 +203,7 @@ const ModelItem: React.FC<ModelItemProps> = ({
 
                             setModelLoading(true)
                             await loadModel(item).catch((e) => {
-                                Logger.error(`Failed to load model: ${e}`)
+                                Logger.error(`加载模型失败：${e}`)
                             })
                             if (item.mmprojLink) {
                                 const [mmprojModel] = mmprojList.filter(
@@ -225,7 +225,7 @@ const ModelItem: React.FC<ModelItemProps> = ({
             </View>
             {((showMMPROJSelector && mmprojList.length > 0) || (item.mmprojLink && !isMMPROJ)) && (
                 <DropdownSheet
-                    modalTitle="Select MMPROJ Model"
+                    modalTitle="选择 MMPROJ 模型"
                     containerStyle={{ marginTop: 12, marginBottom: 4 }}
                     data={mmprojList}
                     selected={
@@ -238,7 +238,7 @@ const ModelItem: React.FC<ModelItemProps> = ({
                             if (item.mmprojLink) await Model.removeMMPROJLink(item)
                             await Model.createMMPROJLink(item, value)
                         } catch (e) {
-                            Logger.errorToast('Failed to link model: ' + e)
+                            Logger.errorToast('关联模型失败：' + e)
                         }
                     }}
                 />

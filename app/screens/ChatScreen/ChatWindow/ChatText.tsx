@@ -57,7 +57,7 @@ const ChatText: React.FC<ChatTextProps> = ({ nowGenerating, index }) => {
                         <ThemedButton
                             onPress={() => setShowHidden(!showHidden)}
                             variant="secondary"
-                            label={showHidden ? 'Hide Filtered' : 'Show Filtered'}
+                            label={showHidden ? '隐藏过滤内容' : '显示过滤内容'}
                             labelStyle={{ flex: 0, fontSize: 12 }}
                             buttonStyle={{
                                 paddingVertical: 0,

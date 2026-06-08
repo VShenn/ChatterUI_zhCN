@@ -72,19 +72,19 @@ const ChracterEditorScreen = () => {
     usePreventRemove(edited, ({ data }) => {
         if (!charId) return
         Alert.alert({
-            title: `Unsaved Changes`,
-            description: `You have unsaved changes, leaving now will discard your progress.`,
+            title: `未保存的更改`,
+            description: `您有未保存的更改，现在离开将丢弃您的进度。`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Save',
+                    label: '保存',
                     onPress: async () => {
                         await handleSaveCard()
                         navigation.dispatch(data.action)
                     },
                 },
                 {
-                    label: 'Discard Changes',
+                    label: '丢弃更改',
                     onPress: () => {
                         navigation.dispatch(data.action)
                     },
@@ -99,14 +99,14 @@ const ChracterEditorScreen = () => {
             if (!charId) return
             Characters.exportCharacter(charId)
                 .catch((e) => {
-                    Logger.errorToast('Failed to export')
+                    Logger.errorToast('导出失败')
                     Logger.error(JSON.stringify(e))
                 })
                 .then(() => {
-                    Logger.infoToast('Card Exported!')
+                    Logger.infoToast('角色已导出！')
                 })
         } catch (e) {
-            Logger.errorToast('Could not export: ' + JSON.stringify(e))
+            Logger.errorToast('无法导出：' + JSON.stringify(e))
         }
     }
 
@@ -115,24 +115,24 @@ const ChracterEditorScreen = () => {
             return Characters.db.mutate.updateCard(characterCard, charId).then(() => {
                 setCurrentCard(charId)
                 setEdited(() => false)
-                Logger.infoToast('Card Saved!')
+                Logger.infoToast('角色已保存！')
             })
     }
 
     const handleDeleteCard = () => {
         Alert.alert({
-            title: `Delete Character`,
-            description: `Are you sure you want to delete '${charName}'? This cannot be undone.`,
+            title: `删除角色`,
+            description: `确定要删除“${charName}”吗？此操作不可撤销。`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete Character',
+                    label: '删除角色',
                     onPress: () => {
                         Characters.db.mutate.deleteCard(charId ?? -1)
                         unloadCharacter()
                         unloadChat()
                         setEdited(false)
-                        Logger.info(`Deleted character: ${charName}`)
+                        Logger.info(`已删除角色：${charName}`)
                     },
                     type: 'warning',
                 },
@@ -148,12 +148,12 @@ const ChracterEditorScreen = () => {
 
     const handleDeleteImage = () => {
         Alert.alert({
-            title: `Delete Image`,
-            description: `Are you sure you want to delete this image? This cannot be undone.`,
+            title: `删除图片`,
+            description: `确定要删除此图片吗？此操作不可撤销。`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete Image',
+                    label: '删除图片',
                     onPress: () => {
                         if (characterCard) Characters.deleteImage(characterCard.image_id)
                     },
@@ -193,7 +193,7 @@ const ChracterEditorScreen = () => {
     const deleteAltMessageRoutine = async () => {
         const id = characterCard?.alternate_greetings[altSwipeIndex].id
         if (!id || !charId) {
-            Logger.errorToast('Error deleting swipe')
+            Logger.errorToast('删除备用问候语出错')
             return
         }
         await Characters.db.mutate.deleteAltGreeting(id)
@@ -207,12 +207,12 @@ const ChracterEditorScreen = () => {
 
     const handleDeleteAltMessage = async () => {
         Alert.alert({
-            title: `Delete Alternate Message`,
-            description: `Are you sure you want to delete this alternate message? This cannot be undone.`,
+            title: `删除备用问候语`,
+            description: `确定要删除此备用问候语吗？此操作不可撤销。`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete',
+                    label: '删除',
                     onPress: async () => {
                         await deleteAltMessageRoutine()
                     },
@@ -231,7 +231,7 @@ const ChracterEditorScreen = () => {
                 source={{
                     uri: backgroundImage ? Characters.getImageDir(backgroundImage) : '',
                 }}>
-                <HeaderTitle title="Edit Character" />
+                <HeaderTitle title="编辑角色" />
                 <AvatarViewer editorButton={false} />
 
                 {characterCard && (
@@ -245,7 +245,7 @@ const ChracterEditorScreen = () => {
                                 placement="right"
                                 buttons={[
                                     {
-                                        label: 'Change Image',
+                                        label: '更换图片',
                                         icon: 'picture',
                                         onPress: (close) => {
                                             close()
@@ -253,7 +253,7 @@ const ChracterEditorScreen = () => {
                                         },
                                     },
                                     {
-                                        label: 'Change Background',
+                                        label: '更换背景',
                                         icon: 'picture',
                                         onPress: async (close) => {
                                             close()
@@ -265,7 +265,7 @@ const ChracterEditorScreen = () => {
                                     },
 
                                     {
-                                        label: 'View Image',
+                                        label: '查看图片',
                                         icon: 'search',
                                         onPress: (close) => {
                                             close()
@@ -273,7 +273,7 @@ const ChracterEditorScreen = () => {
                                         },
                                     },
                                     {
-                                        label: 'Delete Image',
+                                        label: '删除图片',
                                         icon: 'delete',
                                         onPress: (close) => {
                                             close()
@@ -282,7 +282,7 @@ const ChracterEditorScreen = () => {
                                         variant: 'warning',
                                     },
                                     {
-                                        label: 'Remove Background',
+                                        label: '移除背景',
                                         icon: 'delete',
                                         onPress: (close) => {
                                             close()
@@ -312,14 +312,14 @@ const ChracterEditorScreen = () => {
                                         iconName="delete"
                                         iconSize={20}
                                         variant="critical"
-                                        label="Delete"
+                                        label="删除"
                                         onPress={handleDeleteCard}
                                     />
                                     {!edited && (
                                         <ThemedButton
                                             iconName="upload"
                                             iconSize={20}
-                                            label="Export"
+                                            label="导出"
                                             onPress={handleExportCard}
                                             variant="secondary"
                                         />
@@ -328,7 +328,7 @@ const ChracterEditorScreen = () => {
                                         <ThemedButton
                                             iconName="save"
                                             iconSize={20}
-                                            label="Save"
+                                            label="保存"
                                             onPress={handleSaveCard}
                                             variant="secondary"
                                         />
@@ -348,7 +348,7 @@ const ChracterEditorScreen = () => {
 
                         <ThemedTextInput
                             scrollEnabled
-                            label={`Description Tokens: ${descriptionTokens}`}
+                            label={`描述 Token 数：${descriptionTokens}`}
                             multiline
                             containerStyle={styles.input}
                             numberOfLines={16}
@@ -362,7 +362,7 @@ const ChracterEditorScreen = () => {
                         />
 
                         <ThemedTextInput
-                            label="First Message"
+                            label="第一条消息"
                             multiline
                             containerStyle={styles.input}
                             onChangeText={(mes) => {
@@ -382,7 +382,7 @@ const ChracterEditorScreen = () => {
                                     paddingBottom: 12,
                                 }}>
                                 <Text style={{ color: color.text._100 }}>
-                                    Alternate Greeting{'   '}
+                                    备用问候语{'   '}
                                     {characterCard.alternate_greetings.length !== 0 && (
                                         <Text
                                             style={{
@@ -477,13 +477,13 @@ const ChracterEditorScreen = () => {
                                         color: color.text._500,
                                         fontStyle: 'italic',
                                     }}>
-                                    No Alternate Greetings
+                                    暂无备用问候语
                                 </Text>
                             )}
                         </View>
 
                         <ThemedTextInput
-                            label="Personality"
+                            label="个性"
                             multiline
                             containerStyle={styles.input}
                             numberOfLines={4}
@@ -497,7 +497,7 @@ const ChracterEditorScreen = () => {
                         />
 
                         <ThemedTextInput
-                            label="Scenario"
+                            label="场景"
                             multiline
                             containerStyle={styles.input}
                             onChangeText={(mes) => {
@@ -511,7 +511,7 @@ const ChracterEditorScreen = () => {
                         />
 
                         <ThemedTextInput
-                            label="Example Messages"
+                            label="示例消息"
                             multiline
                             containerStyle={styles.input}
                             onChangeText={(mes) => {
@@ -525,7 +525,7 @@ const ChracterEditorScreen = () => {
                         />
 
                         <StringArrayEditor
-                            label="Tags"
+                            label="标签"
                             containerStyle={styles.input}
                             suggestions={data.data
                                 .map((item) => item.tag)

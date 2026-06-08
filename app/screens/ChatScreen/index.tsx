@@ -65,15 +65,15 @@ const ChatScreen = () => {
 
     const handleImportChat = async () => {
         if (!charId || !userId) {
-            Logger.errorToast('You are somehow importing a chat without a character or user')
+            Logger.errorToast('您正在尝试导入没有角色或用户的聊天记录')
             return
         }
         const file = await pickStringDocument({ type: 'application/json' })
         if (!file.success) return
         const result = ChatImportSchema.safeParse(JSON.parse(file.data))
         if (!result.success) {
-            Logger.errorToast('Failed to Import')
-            Logger.error('Incorrect format')
+            Logger.errorToast('导入失败')
+            Logger.error('格式不正确')
             return
         }
         const chat = result.data

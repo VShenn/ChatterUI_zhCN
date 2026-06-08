@@ -18,45 +18,45 @@ const ChatSettings = () => {
     const router = useRouter()
     return (
         <View style={{ rowGap: 8 }}>
-            <SectionTitle>Chat</SectionTitle>
+            <SectionTitle>聊天</SectionTitle>
 
             <ThemedSwitch
-                label="Use First Message"
+                label="使用第一条消息"
                 value={firstMes}
                 onChangeValue={setFirstMes}
-                description="Disabling this will make new chats start blank, needed by specific models"
+                description="禁用后，新聊天将以空白开始，某些模型需要此设置"
             />
 
             <ThemedSwitch
-                label="Load Chat On Startup"
+                label="启动时加载聊天"
                 value={chatOnStartup}
                 onChangeValue={setChatOnStartup}
-                description="Loads the most recent chat on startup"
+                description="启动时加载最近的聊天记录"
             />
 
             <ThemedSwitch
-                label="Auto Load User"
+                label="自动加载用户"
                 value={autoLoadUser}
                 onChangeValue={setAutoLoadUser}
-                description="When opening a chat, automatically loads the User the chat was created with"
+                description="打开聊天时，自动加载与该聊天关联的用户"
             />
 
             <ThemedSwitch
-                label="Automatically Generate Titles"
+                label="自动生成标题"
                 value={autoTitle}
                 onChangeValue={setAutoTitle}
-                description="Automatically generates titles for chats (only in Remote mode)"
+                description="自动为聊天生成标题（仅限远程模式）"
             />
 
             <ThemedSwitch
-                label="Ask In ChatterUI"
+                label="在 ChatterUI 中询问"
                 value={textIntent}
                 onChangeValue={setTextIntent}
-                description="Adds ChatterUI as a search option when highlighting text"
+                description="选中文本时将 ChatterUI 添加为搜索选项"
             />
 
             <ThemedButton
-                label="Chat Style"
+                label="聊天样式"
                 variant="secondary"
                 onPress={() => router.push('/screens/AppSettingsScreen/ChatStyleSettings')}
             />

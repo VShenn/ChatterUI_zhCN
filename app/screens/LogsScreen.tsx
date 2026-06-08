@@ -27,21 +27,21 @@ const LogsScreen = () => {
             .join('\n')
         saveStringToDownload(data, `logs-chatterui-${Date.now()}.txt`, 'utf8')
             .then(() => {
-                Logger.infoToast('Logs Downloaded!')
+                Logger.infoToast('日志已下载！')
             })
             .catch((e) => {
-                Logger.errorToast(`Could Not Export Logs: ${e}`)
+                Logger.errorToast(`无法导出日志：${e}`)
             })
     }
 
     const handleFlushLogs = () => {
         Alert.alert({
-            title: `Delete Logs`,
-            description: `Are you sure you want to delete all logs? This cannot be undone.`,
+            title: `删除日志`,
+            description: `确定要删除所有日志吗？此操作不可撤销。`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete Logs',
+                    label: '删除日志',
                     onPress: async () => {
                         flushLogs()
                     },
@@ -64,7 +64,7 @@ const LogsScreen = () => {
             triggerIcon="setting"
             buttons={[
                 {
-                    label: 'Export Logs',
+                    label: '导出日志',
                     icon: 'export',
                     onPress: (close) => {
                         handleExportLogs()
@@ -72,7 +72,7 @@ const LogsScreen = () => {
                     },
                 },
                 {
-                    label: 'Flush Logs',
+                    label: '清空日志',
                     icon: 'delete',
                     onPress: (close) => {
                         handleFlushLogs()
@@ -90,7 +90,7 @@ const LogsScreen = () => {
             style={{
                 flex: 1,
             }}>
-            <HeaderTitle title="Logs" />
+            <HeaderTitle title="日志" />
             <HeaderButton headerRight={headerRight} />
             <View
                 style={{

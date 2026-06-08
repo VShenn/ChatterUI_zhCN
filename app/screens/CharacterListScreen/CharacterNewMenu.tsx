@@ -25,7 +25,7 @@ const CharacterNewMenu: React.FC<CharacterNewMenuProps> = ({ nowLoading, setNowL
 
     const handleCreateCharacter = async (text: string) => {
         if (!text) {
-            Logger.errorToast('Name Cannot Be Empty!')
+            Logger.errorToast('名称不能为空！')
             return
         }
         Characters.db.mutate.createCard(text).then(async (id) => {
@@ -42,10 +42,10 @@ const CharacterNewMenu: React.FC<CharacterNewMenuProps> = ({ nowLoading, setNowL
             <InputSheet
                 visible={showNewChar}
                 setVisible={setShowNewChar}
-                title="Create New Character"
+                title="创建新角色"
                 onConfirm={handleCreateCharacter}
-                verifyText={(text) => (text.length === 0 ? 'Name cannot be empty' : '')}
-                placeholder="Name..."
+                verifyText={(text) => (text.length === 0 ? '名称不能为空' : '')}
+                placeholder="名称..."
                 autoFocus
             />
 
@@ -53,7 +53,7 @@ const CharacterNewMenu: React.FC<CharacterNewMenuProps> = ({ nowLoading, setNowL
                 triggerIcon="user-add"
                 buttons={[
                     {
-                        label: 'Import From File',
+                        label: '从文件导入',
                         onPress: (close) => {
                             Characters.importCharacter()
                             close()
@@ -61,7 +61,7 @@ const CharacterNewMenu: React.FC<CharacterNewMenuProps> = ({ nowLoading, setNowL
                         icon: 'upload',
                     },
                     {
-                        label: 'Create Character',
+                        label: '创建角色',
                         onPress: (close) => {
                             setShowNewChar(true)
                             close()

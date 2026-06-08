@@ -29,10 +29,10 @@ import { Theme } from '@lib/theme/ThemeManager'
 import { saveStringToDownload } from '@lib/utils/File'
 
 const autoformatterData = [
-    { label: 'Disabled', example: '*<No Formatting>*' },
-    { label: 'Plain Action, Quote Speech', example: 'Some action, "Some speech"' },
-    { label: 'Asterisk Action, Plain Speech', example: '*Some action* Some speech' },
-    { label: 'Asterisk Action, Quote Speech', example: '*Some action* "Some speech"' },
+    { label: '禁用', example: '*<无格式>*' },
+    { label: '动作普通，对话引号', example: 'Some action, "Some speech"' },
+    { label: '星号动作，对话普通', example: '*Some action* Some speech' },
+    { label: '星号动作，对话引号', example: '*Some action* "Some speech"' },
 ]
 
 const FormattingManager = () => {
@@ -67,12 +67,12 @@ const FormattingManager = () => {
 
     const handleRegenerateDefaults = () => {
         Alert.alert({
-            title: `Regenerate Default Instructs`,
-            description: `Are you sure you want to regenerate default Instructs'?`,
+            title: `重新生成默认指令模板`,
+            description: `确定要重新生成默认的指令模板吗？`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Regenerate Default Presets',
+                    label: '重新生成默认预设',
                     onPress: async () => {
                         await Instructs.generateInitialDefaults()
                     },
@@ -83,29 +83,29 @@ const FormattingManager = () => {
 
     const handleExportPreset = async () => {
         if (!instructID) return
-        const name = (currentInstruct?.name ?? 'Default') + '.json'
+        const name = (currentInstruct?.name ?? '默认') + '.json'
         await saveStringToDownload(JSON.stringify(currentInstruct), name, 'utf8')
-        Logger.infoToast(`Saved "${name}" to Downloads`)
+        Logger.infoToast(`已保存“${name}”到下载文件夹`)
     }
 
     const handleDeletePreset = () => {
         if (instructList.length === 1) {
-            Logger.warnToast(`Cannot delete last Instruct preset.`)
+            Logger.warnToast(`无法删除最后一个指令预设。`)
             return
         }
 
         Alert.alert({
-            title: `Delete Config`,
-            description: `Are you sure you want to delete '${currentInstruct?.name}'?`,
+            title: `删除配置`,
+            description: `确定要删除“${currentInstruct?.name}”吗？`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete Instruct',
+                    label: '删除指令模板',
                     onPress: async () => {
                         if (!instructID) return
                         const leftover = data.filter((item) => item.id !== instructID)
                         if (leftover.length === 0) {
-                            Logger.warnToast('Cannot delete last instruct')
+                            Logger.warnToast('无法删除最后一个指令模板')
                             return
                         }
                         Instructs.db.mutate.deleteInstruct(instructID)
@@ -124,7 +124,7 @@ const FormattingManager = () => {
             placement="bottom"
             buttons={[
                 {
-                    label: 'Create Config',
+                    label: '创建配置',
                     icon: 'file-add',
                     onPress: (close) => {
                         setShowNewInstruct(true)
@@ -133,7 +133,7 @@ const FormattingManager = () => {
                     },
                 },
                 {
-                    label: 'Export Config',
+                    label: '导出配置',
                     icon: 'download',
                     onPress: (close) => {
                         handleExportPreset()
@@ -141,7 +141,7 @@ const FormattingManager = () => {
                     },
                 },
                 {
-                    label: 'Delete Config',
+                    label: '删除配置',
                     icon: 'delete',
                     onPress: (close) => {
                         handleDeletePreset()
@@ -150,7 +150,7 @@ const FormattingManager = () => {
                     variant: 'warning',
                 },
                 {
-                    label: 'Regenerate Default',
+                    label: '重新生成默认',
                     icon: 'reload',
                     onPress: (close) => {
                         handleRegenerateDefaults()
@@ -172,21 +172,21 @@ const FormattingManager = () => {
                     marginVertical: spacing.xl,
                     flex: 1,
                 }}>
-                <HeaderTitle title="Formatting" />
+                <HeaderTitle title="格式" />
                 <HeaderButton headerRight={headerRight} />
                 <View>
                     <InputSheet
-                        title="New Instruct Preset"
+                        title="新建指令预设"
                         visible={showNewInstruct}
                         setVisible={setShowNewInstruct}
                         verifyText={(text) =>
                             instructList.some((item) => item.name === text)
-                                ? 'Config already exists'
+                                ? '配置已存在'
                                 : ''
                         }
                         onConfirm={(text) => {
                             if (instructList.some((item) => item.name === text)) {
-                                Logger.warnToast(`Config name already exists.`)
+                                Logger.warnToast(`配置名称已存在。`)
                                 return
                             }
                             if (!currentInstruct) return
@@ -194,7 +194,7 @@ const FormattingManager = () => {
                             Instructs.db.mutate
                                 .createInstruct({ ...currentInstruct, name: text })
                                 .then(async (newid) => {
-                                    Logger.infoToast(`Config created.`)
+                                    Logger.infoToast(`配置已创建。`)
                                     await loadInstruct(newid)
                                 })
                         }}
@@ -219,7 +219,7 @@ const FormattingManager = () => {
                             if (item.id === instructID) return
                             loadInstruct(item.id)
                         }}
-                        modalTitle="Select Config"
+                        modalTitle="选择配置"
                         search
                     />
                     <ThemedButton iconName="save" iconSize={28} variant="tertiary" />
@@ -235,9 +235,9 @@ const FormattingManager = () => {
                         rowGap: spacing.xl,
                         paddingHorizontal: spacing.xl,
                     }}>
-                    <SectionTitle>Instruct Formatting</SectionTitle>
+                    <SectionTitle>指令格式</SectionTitle>
                     <ThemedTextInput
-                        label="System Prompt"
+                        label="系统提示"
                         value={currentInstruct.system_prompt}
                         onChangeText={(text) => {
                             setCurrentInstruct({
@@ -250,7 +250,7 @@ const FormattingManager = () => {
                     />
 
                     <ThemedTextInput
-                        label="System Prompt Format"
+                        label="系统提示格式"
                         value={currentInstruct.system_prompt_format}
                         onChangeText={(text) => {
                             setCurrentInstruct({
@@ -263,7 +263,7 @@ const FormattingManager = () => {
                     />
                     <View style={{ flexDirection: 'row', columnGap: spacing.m }}>
                         <ThemedTextInput
-                            label="System Prefix"
+                            label="系统前缀"
                             value={currentInstruct.system_prefix}
                             onChangeText={(text) => {
                                 setCurrentInstruct({
@@ -275,7 +275,7 @@ const FormattingManager = () => {
                             multiline
                         />
                         <ThemedTextInput
-                            label="System Suffix"
+                            label="系统后缀"
                             value={currentInstruct.system_suffix}
                             onChangeText={(text) => {
                                 setCurrentInstruct({
@@ -289,7 +289,7 @@ const FormattingManager = () => {
                     </View>
                     <View style={{ flexDirection: 'row', columnGap: spacing.m }}>
                         <ThemedTextInput
-                            label="Input Prefix"
+                            label="输入前缀"
                             value={currentInstruct.input_prefix}
                             onChangeText={(text) => {
                                 setCurrentInstruct({
@@ -301,7 +301,7 @@ const FormattingManager = () => {
                             multiline
                         />
                         <ThemedTextInput
-                            label="Input Suffix"
+                            label="输入后缀"
                             value={currentInstruct.input_suffix}
                             onChangeText={(text) => {
                                 setCurrentInstruct({
@@ -315,7 +315,7 @@ const FormattingManager = () => {
                     </View>
                     <View style={{ flexDirection: 'row', columnGap: spacing.m }}>
                         <ThemedTextInput
-                            label="Output Prefix"
+                            label="输出前缀"
                             value={currentInstruct.output_prefix}
                             onChangeText={(text) => {
                                 setCurrentInstruct({
@@ -327,7 +327,7 @@ const FormattingManager = () => {
                             multiline
                         />
                         <ThemedTextInput
-                            label="Output Suffix"
+                            label="输出后缀"
                             value={currentInstruct.output_suffix}
                             onChangeText={(text) => {
                                 setCurrentInstruct({
@@ -342,7 +342,7 @@ const FormattingManager = () => {
 
                     <View style={{ flexDirection: 'row' }}>
                         <ThemedTextInput
-                            label="Last Output Prefix"
+                            label="最后输出前缀"
                             value={currentInstruct.last_output_prefix}
                             onChangeText={(text) => {
                                 setCurrentInstruct({
@@ -357,7 +357,7 @@ const FormattingManager = () => {
 
                     <StringArrayEditor
                         containerStyle={{}}
-                        label="Stop Sequence"
+                        label="停止序列"
                         value={
                             currentInstruct.stop_sequence
                                 ? currentInstruct.stop_sequence.split(',')
@@ -373,7 +373,7 @@ const FormattingManager = () => {
                     />
 
                     <ThemedCheckbox
-                        label="Use Common Stop Sequences"
+                        label="使用通用停止序列"
                         value={currentInstruct.use_common_stop}
                         onChangeValue={(b) => {
                             setCurrentInstruct({
@@ -383,7 +383,7 @@ const FormattingManager = () => {
                         }}
                     />
 
-                    <SectionTitle>Macros & Character Card</SectionTitle>
+                    <SectionTitle>宏与角色卡</SectionTitle>
 
                     <View
                         style={{
@@ -392,7 +392,7 @@ const FormattingManager = () => {
                         }}>
                         <View style={{ flex: 1 }}>
                             <ThemedCheckbox
-                                label="Wrap In Newline"
+                                label="换行包裹"
                                 value={currentInstruct.wrap}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -402,7 +402,7 @@ const FormattingManager = () => {
                                 }}
                             />
                             <ThemedCheckbox
-                                label="Include Names"
+                                label="包含名称"
                                 value={currentInstruct.names}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -412,7 +412,7 @@ const FormattingManager = () => {
                                 }}
                             />
                             <ThemedCheckbox
-                                label="Add Timestamp"
+                                label="添加时间戳"
                                 value={currentInstruct.timestamp}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -422,7 +422,7 @@ const FormattingManager = () => {
                                 }}
                             />
                             <ThemedCheckbox
-                                label="Remove Think Tags"
+                                label="移除思考标签"
                                 value={currentInstruct.hide_think_tags}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -434,7 +434,7 @@ const FormattingManager = () => {
                         </View>
                         <View style={{ flex: 1 }}>
                             <ThemedCheckbox
-                                label="Use Examples"
+                                label="使用示例"
                                 value={currentInstruct.examples}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -444,7 +444,7 @@ const FormattingManager = () => {
                                 }}
                             />
                             <ThemedCheckbox
-                                label="Use Scenario"
+                                label="使用场景"
                                 value={currentInstruct.scenario}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -455,7 +455,7 @@ const FormattingManager = () => {
                             />
 
                             <ThemedCheckbox
-                                label="Use Personality"
+                                label="使用个性"
                                 value={currentInstruct.personality}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -467,7 +467,7 @@ const FormattingManager = () => {
                         </View>
                     </View>
 
-                    <SectionTitle>Attachments</SectionTitle>
+                    <SectionTitle>附件</SectionTitle>
 
                     <View
                         style={{
@@ -477,7 +477,7 @@ const FormattingManager = () => {
                         }}>
                         <View style={{ flex: 1 }}>
                             <ThemedCheckbox
-                                label="Send Images"
+                                label="发送图片"
                                 value={currentInstruct.send_images}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -487,7 +487,7 @@ const FormattingManager = () => {
                                 }}
                             />
                             <ThemedCheckbox
-                                label="Send Documents"
+                                label="发送文档"
                                 value={currentInstruct.send_documents}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -499,7 +499,7 @@ const FormattingManager = () => {
                         </View>
                         <View style={{ flex: 1 }}>
                             <ThemedCheckbox
-                                label="Send Audio"
+                                label="发送音频"
                                 value={currentInstruct.send_audio}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -509,7 +509,7 @@ const FormattingManager = () => {
                                 }}
                             />
                             <ThemedCheckbox
-                                label="Use Last Image Only"
+                                label="仅使用最后一张图片"
                                 value={currentInstruct.last_image_only}
                                 onChangeValue={(b) => {
                                     setCurrentInstruct({
@@ -522,12 +522,12 @@ const FormattingManager = () => {
                     </View>
 
                     <View style={{ rowGap: 8 }}>
-                        <SectionTitle>Text Formatter</SectionTitle>
+                        <SectionTitle>文本格式化器</SectionTitle>
                         <Text
                             style={{
                                 color: color.text._400,
                             }}>
-                            Automatically formats first message to the style below:
+                            自动将第一条消息格式化为以下样式：
                         </Text>
                         <View
                             style={{
@@ -562,28 +562,28 @@ const FormattingManager = () => {
                         </View>
                     </View>
 
-                    <SectionTitle>Hidden Text</SectionTitle>
+                    <SectionTitle>隐藏文本</SectionTitle>
                     <Text
                         style={{
                             color: color.text._400,
                         }}>
-                        Hides text that matches regex patterns defined below. (case insensitive)
+                        隐藏与下方正则表达式匹配的文本（不区分大小写）。
                     </Text>
 
                     <StringArrayEditor value={textFilter} setValue={setTextFilter} />
 
                     <ThemedSwitch
-                        label="Send Filtered Text"
-                        description="Sends the filtered text for inference"
+                        label="发送过滤后的文本"
+                        description="将过滤后的文本发送给模型进行推理"
                         value={sendFilteredText}
                         onChangeValue={setSendFilteredText}
                     />
 
-                    <SectionTitle>Local Template</SectionTitle>
+                    <SectionTitle>本地模板</SectionTitle>
 
                     <ThemedSwitch
-                        label="Use Built-In Local Model Template"
-                        description="When in Local Mode, ChatterUI automatically uses the instruct template provided by the loaded model. Disable this if you want messages to be formatted using Instruct instead. System Prompt however is always used."
+                        label="使用内置的本地模型模板"
+                        description="在本地模式下，ChatterUI 会自动使用加载的模型提供的指令模板。如果你希望使用本页的指令格式来格式化消息，可以禁用此项。系统提示始终会被使用。"
                         value={useTemplate}
                         onChangeValue={setUseTemplate}
                     />

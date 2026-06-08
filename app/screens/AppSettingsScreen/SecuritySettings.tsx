@@ -10,12 +10,12 @@ const SecuritySettings = () => {
     const [authLocal, setAuthLocal] = useMMKVBoolean(AppSettings.LocallyAuthenticateUser)
     return (
         <View style={{ rowGap: 8 }}>
-            <SectionTitle>Security</SectionTitle>
+            <SectionTitle>安全</SectionTitle>
             <ThemedSwitch
-                label="Lock App"
+                label="锁定应用"
                 value={authLocal}
                 onChangeValue={setAuthLocal}
-                description="Requires user authentication to open the app. This will not work if you have no device locks enabled."
+                description="打开应用时需要用户身份验证。如果没有启用设备锁，此功能将无效。"
             />
         </View>
     )

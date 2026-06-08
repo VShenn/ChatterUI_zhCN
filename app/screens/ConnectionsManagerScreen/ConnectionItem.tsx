@@ -28,12 +28,12 @@ const ConnectionItem: React.FC<ConnectionItemProps> = ({ item, index }) => {
 
     const handleDelete = () => {
         Alert.alert({
-            title: 'Delete API Entry',
-            description: `Are you sure you want to delete "${item.friendlyName}"?`,
+            title: '删除 API 条目',
+            description: `确定要删除“${item.friendlyName}”吗？`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete API',
+                    label: '删除 API',
                     onPress: () => {
                         removeValue(index)
                     },
@@ -66,7 +66,7 @@ const ConnectionItem: React.FC<ConnectionItemProps> = ({ item, index }) => {
                         {item.friendlyName}
                     </Text>
                     <Text style={item.active ? styles.config : styles.configInactive}>
-                        Config: {item.configName}
+                        配置：{item.configName}
                     </Text>
                 </View>
             </View>

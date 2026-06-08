@@ -42,7 +42,7 @@ const EmbeddingScreen = () => {
         console.log(input)
 
         console.log(data)
-        console.log('Time taken:', performance.now() - now)
+        console.log('耗时：', performance.now() - now)
     }
 
     const [t1, sett1] = useState<string>('')
@@ -50,12 +50,12 @@ const EmbeddingScreen = () => {
     const [output, setoutput] = useState<string>('')
     return (
         <View style={{ margin: 8 }}>
-            <Text>Embedding</Text>
+            <Text>向量嵌入</Text>
             <TouchableOpacity
                 onPress={() => {
-                    console.log('Reimplement if needed')
+                    console.log('按需重新实现')
                 }}>
-                <Text style={{ color: color.text._100 }}>Load Model</Text>
+                <Text style={{ color: color.text._100 }}>加载模型</Text>
             </TouchableOpacity>
             <TextInput
                 value={t1}
@@ -94,16 +94,16 @@ const EmbeddingScreen = () => {
                         s1 += v1.embedding[index] * v1.embedding[index]
                         s2 += v2.embedding[index] * v2.embedding[index]
                     })
-                    setoutput(`Score: ${dotprod / (Math.sqrt(s1) * Math.sqrt(s2))}`)
+                    setoutput(`相似度：${dotprod / (Math.sqrt(s1) * Math.sqrt(s2))}`)
                 }}>
-                <Text style={{ color: color.text._100 }}>Test Embedding</Text>
+                <Text style={{ color: color.text._100 }}>测试嵌入</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={async () => {
                     sett1('')
                     sett2('')
                 }}>
-                <Text style={{ color: color.text._100 }}>CLEAR</Text>
+                <Text style={{ color: color.text._100 }}>清除</Text>
             </TouchableOpacity>
             <Text style={{ color: color.text._100 }}>{output}</Text>
             <View style={{ margin: 16 }} />
@@ -111,25 +111,25 @@ const EmbeddingScreen = () => {
                 onPress={async () => {
                     deleteTables()
                 }}>
-                <Text style={{ color: color.text._100 }}>Delete DB</Text>
+                <Text style={{ color: color.text._100 }}>删除数据库</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={async () => {
                     createTables()
                 }}>
-                <Text style={{ color: color.text._100 }}>Make DB</Text>
+                <Text style={{ color: color.text._100 }}>创建数据库</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={async () => {
                     insertData()
                 }}>
-                <Text style={{ color: color.text._100 }}>Insert data</Text>
+                <Text style={{ color: color.text._100 }}>插入数据</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 onPress={async () => {
                     getData()
                 }}>
-                <Text style={{ color: color.text._100 }}>Query</Text>
+                <Text style={{ color: color.text._100 }}>查询</Text>
             </TouchableOpacity>
         </View>
     )

@@ -43,7 +43,7 @@ const ChatStyling = () => {
     const { color } = Theme.useTheme()
     return (
         <SafeAreaView style={{ flex: 1, rowGap: 4, padding: 16, paddingBottom: 32 }}>
-            <HeaderTitle title="Chat Styling" />
+            <HeaderTitle title="聊天样式" />
             <View
                 style={{
                     borderRadius: 12,
@@ -64,7 +64,7 @@ const ChatStyling = () => {
                     value: item,
                     label: item.toUpperCase(),
                 }))}
-                label={'Font Size'}
+                label={'字体大小'}
                 selected={size}
                 onPress={(item) => setSize(item)}
                 style={{ flex: 0 }}
@@ -74,7 +74,7 @@ const ChatStyling = () => {
                     value: item,
                     label: item,
                 }))}
-                label={'Font Weight'}
+                label={'字体粗细'}
                 selected={weight}
                 onPress={(item) => setWeight(item)}
                 style={{ flex: 0 }}

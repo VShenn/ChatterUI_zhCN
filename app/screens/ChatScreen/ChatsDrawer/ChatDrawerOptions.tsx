@@ -21,7 +21,7 @@ const ChatEditPopup: React.FC<ChatEditPopupProps> = ({ item, children, onPress }
     const { charName, charId } = Characters.useCharacterStore(
         useShallow((state) => ({
             charId: state.id,
-            charName: state.card?.name ?? 'Unknown',
+            charName: state.card?.name ?? '未知',
         }))
     )
 
@@ -36,12 +36,12 @@ const ChatEditPopup: React.FC<ChatEditPopupProps> = ({ item, children, onPress }
 
     const handleDeleteChat = (close: () => void) => {
         Alert.alert({
-            title: `Delete Chat`,
-            description: `Are you sure you want to delete '${item.name}'? This cannot be undone.`,
+            title: `删除聊天`,
+            description: `确定要删除“${item.name}”吗？此操作不可撤销。`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete Chat',
+                    label: '删除聊天',
                     onPress: async () => {
                         await deleteChat(item.id)
                         if (charId && chatId === item.id) {
@@ -51,7 +51,7 @@ const ChatEditPopup: React.FC<ChatEditPopupProps> = ({ item, children, onPress }
                                 : await Chats.db.mutate.createChat(charId)
                             chatId && (await loadChat(chatId))
                         } else if (item.id === chatId) {
-                            Logger.errorToast(`Something went wrong with creating a default chat`)
+                            Logger.errorToast(`创建默认聊天时出现问题`)
                             unloadChat()
                         }
                         close()
@@ -64,12 +64,12 @@ const ChatEditPopup: React.FC<ChatEditPopupProps> = ({ item, children, onPress }
 
     const handleCloneChat = (close: () => void) => {
         Alert.alert({
-            title: `Clone Chat`,
-            description: `Are you sure you want to clone '${item.name}'?`,
+            title: `克隆聊天`,
+            description: `确定要克隆“${item.name}”吗？`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Clone Chat',
+                    label: '克隆聊天',
                     onPress: async () => {
                         await Chats.db.mutate.cloneChatFromId(item.id)
                         close()
@@ -85,43 +85,43 @@ const ChatEditPopup: React.FC<ChatEditPopupProps> = ({ item, children, onPress }
         if (chat) {
             try {
                 await saveStringToDownload(JSON.stringify(chat), name, 'utf8')
-                Logger.infoToast(`File: ${name} saved to downloads!`)
+                Logger.infoToast(`文件：${name} 已保存到下载文件夹！`)
             } catch (e) {
-                Logger.errorToast('Failed to export chat')
+                Logger.errorToast('导出聊天失败')
                 Logger.error(`${e}`)
             }
         } else {
-            Logger.errorToast('Chat is undefined')
+            Logger.errorToast('聊天记录未定义')
         }
         close()
     }
 
     const handleLinkUser = async (close: () => void) => {
         if (userId === item.user_id) {
-            Logger.warnToast('This User Is Already Set')
+            Logger.warnToast('此用户已关联')
             close()
             return
         }
         if (!userId) {
-            Logger.errorToast('No Current User')
+            Logger.errorToast('没有当前用户')
             close()
             return
         }
         await Chats.db.mutate.updateUser(item.id, userId)
-        Logger.infoToast(`Linked to User: ${userName}`)
+        Logger.infoToast(`已关联用户：${userName}`)
         close()
     }
 
     return (
         <>
             <InputSheet
-                title="Rename Chat"
+                title="重命名聊天"
                 visible={showRename}
                 setVisible={setShowRename}
                 onConfirm={async (text) => {
                     await Chats.db.mutate.renameChat(item.id, text)
                 }}
-                verifyText={(text) => (text.length === 0 ? 'Name cannot be empty' : '')}
+                verifyText={(text) => (text.length === 0 ? '名称不能为空' : '')}
                 defaultValue={item.name}
             />
             <ContextMenu
@@ -130,7 +130,7 @@ const ChatEditPopup: React.FC<ChatEditPopupProps> = ({ item, children, onPress }
                 onPress={onPress}
                 buttons={[
                     {
-                        label: 'Rename',
+                        label: '重命名',
                         icon: 'edit',
                         onPress: (close) => {
                             setShowRename(true)
@@ -138,26 +138,26 @@ const ChatEditPopup: React.FC<ChatEditPopupProps> = ({ item, children, onPress }
                         },
                     },
                     {
-                        label: 'Delete',
+                        label: '删除',
                         icon: 'delete',
                         variant: 'warning',
                         onPress: handleDeleteChat,
                     },
                     {
-                        label: 'More',
+                        label: '更多',
                         submenu: [
                             {
-                                label: 'Export',
+                                label: '导出',
                                 icon: 'download',
                                 onPress: handleExportChat,
                             },
                             {
-                                label: 'Clone',
+                                label: '克隆',
                                 icon: 'copy',
                                 onPress: handleCloneChat,
                             },
                             {
-                                label: 'Link User',
+                                label: '关联用户',
                                 icon: 'user',
                                 onPress: handleLinkUser,
                             },

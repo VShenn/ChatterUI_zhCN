@@ -20,55 +20,55 @@ const ChatWindowSettings = () => {
 
     return (
         <View style={{ rowGap: 8 }}>
-            <SectionTitle>Chat Window</SectionTitle>
+            <SectionTitle>聊天窗口</SectionTitle>
 
             <ThemedSwitch
-                label="Auto Scroll"
+                label="自动滚动"
                 value={autoScroll}
                 onChangeValue={setAutoScroll}
-                description="Autoscrolls text during generations"
+                description="生成时自动滚动文本"
             />
 
             <ThemedSwitch
-                label="Send on Enter"
+                label="回车发送"
                 value={sendOnEnter}
                 onChangeValue={setSendOnEnter}
-                description="Submits messages when Enter is pressed"
+                description="按下回车时发送消息"
             />
 
             <ThemedSwitch
-                label="Show Tokens Per Second"
+                label="显示每秒令牌数"
                 value={showTokensPerSecond}
                 onChangeValue={setShowTokensPerSecond}
-                description="Show tokens per second when using local models"
+                description="使用本地模型时显示每秒生成的令牌数"
             />
 
             <ThemedSwitch
-                label="Quick Delete"
+                label="快速删除"
                 value={quickDelete}
                 onChangeValue={setQuickDelete}
-                description="Toggle delete button in chat options bar"
+                description="在聊天选项栏中显示删除按钮"
             />
 
             <ThemedSwitch
-                label="Save Scroll Position"
+                label="保存滚动位置"
                 value={saveScroll}
                 onChangeValue={setSaveScroll}
-                description="Automatically move to last scrolled position in chat"
+                description="自动恢复到聊天中上次滚动到的位置"
             />
 
             <ThemedSwitch
-                label="Wide Chat"
+                label="宽屏聊天"
                 value={wide}
                 onChangeValue={setWide}
-                description="Removes whitespace for wider chat"
+                description="移除空白区域，使聊天区域更宽"
             />
 
             <ThemedSwitch
-                label="Alternate User and Character Positions"
+                label="交替显示用户和角色位置"
                 value={alternate}
                 onChangeValue={setAlternate}
-                description="Left align character chats and right aligns user chats"
+                description="角色聊天左对齐，用户聊天右对齐"
             />
         </View>
     )

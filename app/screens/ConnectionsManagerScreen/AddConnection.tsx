@@ -29,7 +29,7 @@ const AddConnection = () => {
     const [values, setValues] = useState<APIManagerValue>({
         ...template.defaultValues,
         configName: template.name,
-        friendlyName: 'New API',
+        friendlyName: '新建 API',
         active: true,
     })
     const [modelList, setModelList] = useState<any[]>([])
@@ -47,18 +47,18 @@ const AddConnection = () => {
         const result = await fetch(values.modelEndpoint, { headers: { ...auth } })
         const data = await result.json()
         if (result.status !== 200) {
-            Logger.error(`Could not retrieve models: ${data?.error?.message}`)
+            Logger.error(`无法获取模型：${data?.error?.message}`)
             return
         }
         const models = getNestedValue(data, template.model.modelListParser)
         const isArray = Array.isArray(models)
         if (!models || !isArray) {
-            Logger.warn('Could not parse models!')
+            Logger.warn('无法解析模型列表！')
             if (!models) {
-                Logger.error('Models resulted in an undefined value')
+                Logger.error('模型解析结果为 undefined')
             } else if (!isArray)
                 Logger.error(
-                    'Models resulted in an non-array value. `modelListParser` of template is likely incorrect'
+                    '模型解析结果不是数组。`modelListParser` 模板可能不正确'
                 )
             return
         }
@@ -71,7 +71,7 @@ const AddConnection = () => {
 
     return (
         <SafeAreaView edges={['bottom']} style={styles.mainContainer}>
-            <Stack.Screen options={{ title: 'Add Connection' }} />
+            <Stack.Screen options={{ title: '添加连接' }} />
             <ScrollView
                 style={{ flex: 1 }}
                 showsVerticalScrollIndicator={false}
@@ -92,12 +92,12 @@ const AddConnection = () => {
                             model: undefined,
                         })
                     }}
-                    modalTitle="Select Connection Type"
+                    modalTitle="选择连接类型"
                     search
                 />
 
                 <ThemedTextInput
-                    label="Friendly Name"
+                    label="友好名称"
                     value={values.friendlyName}
                     onChangeText={(value) => {
                         setValues({ ...values, friendlyName: value })
@@ -107,20 +107,20 @@ const AddConnection = () => {
                 {template.ui.editableCompletionPath && (
                     <View>
                         <ThemedTextInput
-                            label="Completion URL"
+                            label="补全 URL"
                             value={values.endpoint}
                             onChangeText={(value) => {
                                 setValues({ ...values, endpoint: value })
                             }}
                         />
-                        <Text style={styles.hintText}>Note: Use full URL path</Text>
+                        <Text style={styles.hintText}>注意：使用完整的 URL 路径</Text>
                     </View>
                 )}
 
                 {template.ui.editableModelPath && (
                     <View>
                         <ThemedTextInput
-                            label="Model URL"
+                            label="模型 URL"
                             value={values.modelEndpoint}
                             onChangeText={(value) => {
                                 setValues({ ...values, modelEndpoint: value })
@@ -144,7 +144,7 @@ const AddConnection = () => {
 
                 {template.features.useKey && (
                     <ThemedTextInput
-                        label="API Key"
+                        label="API 密钥"
                         secureTextEntry
                         value={values.key}
                         onChangeText={(value) => {
@@ -155,7 +155,7 @@ const AddConnection = () => {
 
                 {template.features.useModel && (
                     <View>
-                        <Text style={styles.title}>Model</Text>
+                        <Text style={styles.title}>模型</Text>
                         <View
                             style={{
                                 flexDirection: 'row',
@@ -175,7 +175,7 @@ const AddConnection = () => {
                                         setValues({ ...values, model: item })
                                     }}
                                     search={modelList.length > 10}
-                                    modalTitle="Select Model"
+                                    modalTitle="选择模型"
                                 />
                             )}
                             {template.features.multipleModels && (
@@ -190,7 +190,7 @@ const AddConnection = () => {
                                         setValues({ ...values, model: item })
                                     }}
                                     search={modelList.length > 10}
-                                    modalTitle="Select Model"
+                                    modalTitle="选择模型"
                                 />
                             )}
                             <ThemedButton
@@ -208,30 +208,30 @@ const AddConnection = () => {
                 {template.features.useFirstMessage && (
                     <View>
                         <ThemedTextInput
-                            label="First Message"
+                            label="第一条消息"
                             value={values.firstMessage}
                             onChangeText={(value) => {
                                 setValues({ ...values, firstMessage: value })
                             }}
                         />
-                        <Text style={styles.hintText}>Default first message sent to Claude</Text>
+                        <Text style={styles.hintText}>发送给 Claude 的默认第一条消息</Text>
                     </View>
                 )}
                 {template.features.usePrefill && (
                     <View>
                         <ThemedTextInput
-                            label="Prefill"
+                            label="预填充"
                             value={values.prefill}
                             onChangeText={(value) => {
                                 setValues({ ...values, prefill: value })
                             }}
                         />
-                        <Text style={styles.hintText}>Prefill before model response</Text>
+                        <Text style={styles.hintText}>模型回复前的预填充文本</Text>
                     </View>
                 )}
             </ScrollView>
             <ThemedButton
-                label="Create API"
+                label="创建 API"
                 onPress={() => {
                     addValue(values)
                     router.back()

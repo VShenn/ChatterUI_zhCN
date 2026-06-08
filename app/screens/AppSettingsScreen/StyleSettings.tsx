@@ -21,31 +21,30 @@ const StyleSettings = () => {
 
     return (
         <View style={{ rowGap: 8 }}>
-            <SectionTitle>Style</SectionTitle>
+            <SectionTitle>样式</SectionTitle>
 
             <ThemedButton
-                label="Change Theme"
+                label="更换主题"
                 variant="secondary"
                 onPress={() => router.push('/screens/AppSettingsScreen/ColorSelector')}
             />
             <ThemedButton
-                label={chatBackground ? 'Replace Chat Background' : 'Import Chat Background'}
+                label={chatBackground ? '替换聊天背景' : '导入聊天背景'}
                 variant="secondary"
                 onPress={importBackground}
             />
             {chatBackground && (
                 <ThemedButton
-                    label="Delete Chat Background"
+                    label="删除聊天背景"
                     variant="critical"
                     onPress={() =>
                         Alert.alert({
-                            title: 'Delete Background',
-                            description:
-                                'Are you sure you want to delete this background? This cannot be undone!',
+                            title: '删除背景',
+                            description: '确定要删除此背景吗？此操作不可撤销！',
                             buttons: [
-                                { label: 'Cancel' },
+                                { label: '取消' },
                                 {
-                                    label: 'Delete Background',
+                                    label: '删除背景',
                                     type: 'warning',
                                     onPress: deleteBackground,
                                 },

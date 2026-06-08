@@ -55,12 +55,12 @@ const UserCardEditor = () => {
 
     const handleDeleteImage = () => {
         Alert.alert({
-            title: `Delete Image`,
-            description: `Are you sure you want to delete this image? This cannot be undone.`,
+            title: `删除图片`,
+            description: `确定要删除此图片吗？此操作不可撤销。`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete Image',
+                    label: '删除图片',
                     onPress: () => {
                         Characters.deleteImage(imageID)
                     },
@@ -78,7 +78,7 @@ const UserCardEditor = () => {
                     placement="right"
                     buttons={[
                         {
-                            label: 'Change Image',
+                            label: '更换图片',
                             icon: 'picture',
                             onPress: (close) => {
                                 close()
@@ -86,7 +86,7 @@ const UserCardEditor = () => {
                             },
                         },
                         {
-                            label: 'View Image',
+                            label: '查看图片',
                             icon: 'search',
                             onPress: (close) => {
                                 close()
@@ -94,7 +94,7 @@ const UserCardEditor = () => {
                             },
                         },
                         {
-                            label: 'Delete Image',
+                            label: '删除图片',
                             icon: 'delete',
                             onPress: (close) => {
                                 close()
@@ -112,7 +112,7 @@ const UserCardEditor = () => {
                 <ThemedTextInput
                     multiline
                     numberOfLines={10}
-                    label="Name"
+                    label="名称"
                     value={currentCard?.name ?? ''}
                     onChangeText={(text) => {
                         if (currentCard)
@@ -121,13 +121,13 @@ const UserCardEditor = () => {
                                 name: text,
                             })
                     }}
-                    placeholder="Empty names are discouraged!"
+                    placeholder="不建议使用空名称！"
                 />
             </View>
             <ThemedTextInput
                 multiline
                 numberOfLines={10}
-                label="Description"
+                label="描述"
                 value={currentCard?.description ?? ''}
                 onChangeText={(text) => {
                     if (currentCard)
@@ -136,7 +136,7 @@ const UserCardEditor = () => {
                             description: text,
                         })
                 }}
-                placeholder="Describe this user..."
+                placeholder="描述此用户..."
             />
             <View style={{ flex: 1, paddingBottom: spacing.m }} />
             <Text
@@ -145,10 +145,9 @@ const UserCardEditor = () => {
                     marginTop: spacing.xl2,
                     alignSelf: 'center',
                 }}>
-                Hint: Swipe Left or press <AntDesign name="menu-unfold" size={16} /> to open the
-                Users drawer
+                提示：向左滑动或按 <AntDesign name="menu-unfold" size={16} /> 打开用户抽屉
             </Text>
-            <ThemedButton label="Save" onPress={saveCard} iconName="save" />
+            <ThemedButton label="保存" onPress={saveCard} iconName="save" />
         </View>
     )
 }

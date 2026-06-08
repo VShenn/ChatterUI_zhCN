@@ -19,7 +19,7 @@ const UserManagerScreen = () => {
                 }}>
                 <Stack.Screen
                     options={{
-                        title: 'Edit User',
+                        title: '编辑用户',
                         animation: 'simple_push',
                         headerRight: () => <Drawer.Button drawerID={Drawer.ID.USERLIST} />,
                     }}

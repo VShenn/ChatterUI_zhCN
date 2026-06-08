@@ -83,7 +83,7 @@ const ChatInput = () => {
     )
 
     const abortResponse = async () => {
-        Logger.info(`Aborting Generation`)
+        Logger.info(`正在中止生成`)
         if (abortFunction) await abortFunction()
     }
 
@@ -232,7 +232,7 @@ const ChatInput = () => {
                                 triggerIconSize={20}
                                 buttons={[
                                     {
-                                        label: 'Take Picture',
+                                        label: '拍照',
                                         icon: 'camera',
                                         onPress: (close) => {
                                             setShowCamera(true)
@@ -240,7 +240,7 @@ const ChatInput = () => {
                                         },
                                     },
                                     {
-                                        label: 'Add Image',
+                                        label: '添加图片',
                                         icon: 'picture',
                                         onPress: async (close) => {
                                             close()
@@ -294,7 +294,7 @@ const ChatInput = () => {
                         setHideOptions(!!newMessage)
                     }}
                     numberOfLines={8}
-                    placeholder="Message..."
+                    placeholder="输入消息..."
                     placeholderTextColor={color.text._700}
                     value={newMessage}
                     onChangeText={(text) => {

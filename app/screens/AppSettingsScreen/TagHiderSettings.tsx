@@ -19,8 +19,8 @@ const TagHiderSettings = () => {
     return (
         <View>
             <ThemedSwitch
-                label="Hidden Tags"
-                description="Hide characters with the following tags from the character list."
+                label="隐藏标签"
+                description="从角色列表中隐藏包含以下标签的角色。"
                 value={tagHider}
                 onChangeValue={(b) => setUseTagHider(b)}
             />

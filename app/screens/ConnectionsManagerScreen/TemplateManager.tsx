@@ -36,7 +36,7 @@ const TemplateManager = () => {
                 paddingBottom: spacing.xl2,
                 flex: 1,
             }}>
-            <HeaderTitle title="Template Manager" />
+            <HeaderTitle title="模板管理器" />
             <HeaderButton
                 headerRight={() => (
                     <ContextMenu
@@ -44,7 +44,7 @@ const TemplateManager = () => {
                         placement="bottom"
                         buttons={[
                             {
-                                label: 'Import Template',
+                                label: '导入模板',
                                 icon: 'download',
                                 onPress: async (close) => {
                                     close()
@@ -56,7 +56,7 @@ const TemplateManager = () => {
                                 },
                             },
                             {
-                                label: 'Paste Template',
+                                label: '粘贴模板',
                                 icon: 'file',
                                 onPress: (close) => {
                                     close()
@@ -64,7 +64,7 @@ const TemplateManager = () => {
                                 },
                             },
                             {
-                                label: 'Get Templates',
+                                label: '获取模板',
                                 icon: 'github',
                                 onPress: (close) => {
                                     close()
@@ -74,7 +74,7 @@ const TemplateManager = () => {
                                 },
                             },
                             {
-                                label: 'Learn About Templates',
+                                label: '了解模板',
                                 icon: 'info',
                                 onPress: (close) => {
                                     close()
@@ -95,11 +95,11 @@ const TemplateManager = () => {
                         const data = JSON.parse(e)
                         addTemplate(data)
                     } catch (e) {
-                        Logger.errorToast('Failed to import: ' + e)
+                        Logger.errorToast('导入失败：' + e)
                     }
                 }}
                 multiline
-                title="Paste Template Here"
+                title="在此粘贴模板"
             />
             {templates.length > 0 && (
                 <FlatList
@@ -128,7 +128,7 @@ const TemplateManager = () => {
                             fontStyle: 'italic',
                             marginTop: spacing.l,
                         }}>
-                        No Custom Templates Added
+                        未添加任何自定义模板
                     </Text>
                 </View>
             )}

@@ -36,14 +36,14 @@ const CharacterEditPopup: React.FC<CharacterEditPopupProps> = ({
                 chatId = await Chats.db.mutate.createChat(character.id)
             }
             if (!chatId) {
-                Logger.errorToast('Chat creation backup has failed! Please report.')
+                Logger.errorToast('聊天创建备份失败！请报告此问题。')
                 return
             }
             await loadChat(chatId)
             setNowLoading(false)
             router.push('/screens/ChatScreen')
         } catch (error) {
-            Logger.errorToast(`Couldn't load character: ${error}`)
+            Logger.errorToast(`无法加载角色：${error}`)
             setNowLoading(false)
         }
     }
@@ -53,14 +53,14 @@ const CharacterEditPopup: React.FC<CharacterEditPopupProps> = ({
     const deleteCard = (close: () => void) => {
         close()
         Alert.alert({
-            title: 'Delete Character',
-            description: `Are you sure you want to delete '${character.name}'?\nThis cannot be undone.`,
+            title: '删除角色',
+            description: `确定要删除“${character.name}”吗？\n此操作不可撤销。`,
             buttons: [
                 {
-                    label: 'Cancel',
+                    label: '取消',
                 },
                 {
-                    label: 'Delete Character',
+                    label: '删除角色',
                     onPress: async () => {
                         Characters.db.mutate.deleteCard(character.id ?? -1)
                     },
@@ -73,14 +73,14 @@ const CharacterEditPopup: React.FC<CharacterEditPopupProps> = ({
     const cloneCard = (close: () => void) => {
         close()
         Alert.alert({
-            title: 'Clone Character',
-            description: `Are you sure you want to clone '${character.name}'?`,
+            title: '克隆角色',
+            description: `确定要克隆“${character.name}”吗？`,
             buttons: [
                 {
-                    label: 'Cancel',
+                    label: '取消',
                 },
                 {
-                    label: 'Clone Character',
+                    label: '克隆角色',
                     onPress: async () => {
                         setNowLoading(true)
                         await Characters.db.mutate.duplicateCard(character.id)
@@ -108,9 +108,9 @@ const CharacterEditPopup: React.FC<CharacterEditPopupProps> = ({
             longPress
             delayLongPress={300}
             buttons={[
-                { label: 'Edit', icon: 'edit', onPress: editCharacter },
-                { label: 'Clone', icon: 'copy', onPress: cloneCard },
-                { label: 'Delete', icon: 'delete', onPress: deleteCard, variant: 'warning' },
+                { label: '编辑', icon: 'edit', onPress: editCharacter },
+                { label: '克隆', icon: 'copy', onPress: cloneCard },
+                { label: '删除', icon: 'delete', onPress: deleteCard, variant: 'warning' },
             ]}
             placement="center">
             <View pointerEvents="none">{children}</View>

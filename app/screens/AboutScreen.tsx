@@ -19,7 +19,7 @@ const AboutScreen = () => {
     const updateCounter = () => {
         if (devMode) return
         if (counter === 6) {
-            Logger.infoToast(`You have enabled dev mode.`)
+            Logger.infoToast(`您已启用开发者模式。`)
             setDevMode(true)
         }
         setCounter(counter + 1)
@@ -28,18 +28,18 @@ const AboutScreen = () => {
     const version = 'v' + appConfig.expo.version
     return (
         <View style={styles.container}>
-            <HeaderTitle title="About" />
+            <HeaderTitle title="关于" />
             <TouchableOpacity activeOpacity={0.8} onPress={updateCounter}>
                 <Image source={require('../../assets/images/icon.png')} style={styles.icon} />
             </TouchableOpacity>
 
             <Text style={styles.titleText}>ChatterUI</Text>
             <Text style={styles.subtitleText}>
-                Version {version} {devMode && '[DEV MODE]'}
+                版本 {version} {devMode && '[开发模式]'}
             </Text>
             {devMode && (
                 <ThemedButton
-                    label="Disable Dev Mode"
+                    label="禁用开发模式"
                     variant="critical"
                     buttonStyle={{
                         marginTop: spacing.xl,
@@ -47,30 +47,30 @@ const AboutScreen = () => {
                     onPress={() => {
                         setCounter(0)
                         setDevMode(false)
-                        Logger.info('Dev mode disabled')
+                        Logger.info('开发模式已禁用')
                     }}
                 />
             )}
 
             <Text style={styles.body}>
-                ChatterUI is a free and open-source application developed by Vali-98
+                ChatterUI 是一个免费开源应用，由 Vali-98 开发
             </Text>
             <Text style={{ marginBottom: spacing.xl3, ...styles.body }}>
-                {`This app is a passion project I develop in my free time. If you're enjoying the app, consider supporting its development!`}
+                {`这个应用是我在业余时间开发的热情项目。如果你喜欢这个应用，请考虑支持它的开发！`}
             </Text>
             <Text style={{ ...styles.body, marginBottom: spacing.m }}>
-                Donate to ChatterUI here:
+                在此为 ChatterUI 捐赠：
             </Text>
 
             <SupportButton />
 
-            <Text style={styles.body}>Got an issue? Report it here:</Text>
-            <Text style={styles.subtitleText}>({`Don't forget to add your Logs!`})</Text>
+            <Text style={styles.body}>遇到问题？在这里报告：</Text>
+            <Text style={styles.subtitleText}>（{`别忘了附上你的日志！`}）</Text>
 
             <ThemedButton
                 buttonStyle={{ marginTop: spacing.m }}
                 variant="secondary"
-                label="Github Repository"
+                label="GitHub 仓库"
                 iconName="github"
                 iconSize={20}
                 onPress={() => {

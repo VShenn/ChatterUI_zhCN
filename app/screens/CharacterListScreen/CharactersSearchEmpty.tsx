@@ -22,7 +22,7 @@ const CharSearchEmpty = () => {
                     fontStyle: 'italic',
                     fontSize: fontSize.l,
                 }}>
-                No Characters Match Search Result
+                没有匹配搜索结果的角色
             </Text>
         </View>
     )

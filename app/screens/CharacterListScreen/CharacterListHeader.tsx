@@ -90,10 +90,10 @@ const CharacterListHeader: React.FC<CharacterListHeaderProps> = ({ resultLength 
                             color: color.text._400,
                             fontSize: 16,
                         }}>
-                        Sort By
+                        排序方式
                     </Text>
-                    <SortButton type="modified" label="Recent" />
-                    <SortButton type="name" label="Name" />
+                    <SortButton type="modified" label="最近" />
+                    <SortButton type="name" label="名称" />
                 </View>
                 <View
                     style={{
@@ -123,7 +123,7 @@ const CharacterListHeader: React.FC<CharacterListHeaderProps> = ({ resultLength 
                         delayLongPress={5000}
                         onLongPress={() => {
                             setUseTagHider(!useTagHider)
-                            Logger.infoToast('Hider ' + (!useTagHider ? 'Enabled' : 'Disabled'))
+                            Logger.infoToast('隐藏 ' + (!useTagHider ? '已启用' : '已禁用'))
                         }}
                     />
                 </View>
@@ -141,23 +141,23 @@ const CharacterListHeader: React.FC<CharacterListHeaderProps> = ({ resultLength 
                                 suggestions={data
                                     .sort((a, b) => b.tagCount - a.tagCount)
                                     .map((item) => item.tag)}
-                                label="Search By Tags"
+                                label="按标签搜索"
                                 value={tagFilter}
                                 setValue={setTagFilter}
-                                placeholder="Filter Tags..."
+                                placeholder="筛选标签..."
                                 filterOnly
                                 showSuggestionsOnEmpty
                             />
                         )}
                         <ThemedTextInput
-                            label="Search By Name"
+                            label="按名称搜索"
                             containerStyle={{ flex: 0 }}
                             value={textFilter}
                             onChangeText={setTextFilter}
                             style={{
                                 color: resultLength === 0 ? color.text._700 : color.text._100,
                             }}
-                            placeholder="Name..."
+                            placeholder="名称..."
                         />
                         {(textFilter || tagFilter.length > 0) && (
                             <Text
@@ -165,7 +165,7 @@ const CharacterListHeader: React.FC<CharacterListHeaderProps> = ({ resultLength 
                                     marginTop: 8,
                                     color: color.text._400,
                                 }}>
-                                Results: {resultLength}
+                                结果：{resultLength}
                             </Text>
                         )}
                     </Animated.View>

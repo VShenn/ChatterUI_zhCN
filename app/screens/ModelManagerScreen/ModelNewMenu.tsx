@@ -33,12 +33,12 @@ const ModelNewMenu: React.FC<ModelNewMenuProps> = ({ modelImporting, setModelImp
                 disabled={modelImporting}
                 buttons={[
                     {
-                        label: 'Copy Model Into ChatterUI',
+                        label: '复制模型到 ChatterUI',
                         icon: 'download',
                         onPress: handleImportModel,
                     },
                     {
-                        label: 'Use External Model',
+                        label: '使用外部模型',
                         icon: 'link',
                         onPress: handleSetExternal,
                     },

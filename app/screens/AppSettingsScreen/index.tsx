@@ -26,7 +26,7 @@ const AppSettingsMenu = () => {
                 paddingBottom: spacing.xl3,
             }}
             contentContainerStyle={{ rowGap: spacing.sm }}>
-            <HeaderTitle title="Settings" />
+            <HeaderTitle title="设置" />
 
             <StyleSettings />
             <ChatSettings />

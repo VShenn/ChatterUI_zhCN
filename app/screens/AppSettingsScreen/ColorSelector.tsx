@@ -50,12 +50,12 @@ const ColorThemeItem: React.FC<ColorThemeItemProps> = ({ item, index, showDelete
 
     const handleRemoveColorScheme = (index: number) => {
         Alert.alert({
-            title: 'Delete Theme',
-            description: `Are you sure you want to delete "${item.name}"? This cannot be undone!`,
+            title: '删除主题',
+            description: `确定要删除“${item.name}”吗？此操作不可撤销！`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete Theme',
+                    label: '删除主题',
                     type: 'warning',
                     onPress: () => {
                         removeColorScheme(index)
@@ -119,7 +119,7 @@ const ColorThemeItem: React.FC<ColorThemeItemProps> = ({ item, index, showDelete
                                 paddingHorizontal: 8,
                                 borderRadius: 8,
                             }}>
-                            Active
+                            当前
                         </Text>
                     )}
                 </View>
@@ -135,7 +135,7 @@ const ColorThemeItem: React.FC<ColorThemeItemProps> = ({ item, index, showDelete
                     />
                 ) : (
                     <Text style={{ color: item.text._500 }}>
-                        {showDelete ? 'Custom' : 'Built-in'}
+                        {showDelete ? '自定义' : '内置'}
                     </Text>
                 )}
             </TouchableOpacity>
@@ -212,11 +212,11 @@ const ColorSelector = () => {
 
     return (
         <SafeAreaView edges={['bottom']} style={{ paddingHorizontal: 16, rowGap: 16, flex: 1 }}>
-            <HeaderTitle title="Themes" />
+            <HeaderTitle title="主题" />
             <ThemedSwitch
                 value={systemDark}
                 onChangeValue={setSystemDark}
-                label="Use System Dark Mode"
+                label="使用系统深色模式"
             />
             <HeaderButton
                 headerRight={() => (
@@ -225,7 +225,7 @@ const ColorSelector = () => {
                         placement="bottom"
                         buttons={[
                             {
-                                label: 'Import Theme',
+                                label: '导入主题',
                                 icon: 'download',
                                 onPress: (close) => {
                                     pickJSONDocument().then((result) => {
@@ -236,7 +236,7 @@ const ColorSelector = () => {
                                 },
                             },
                             {
-                                label: 'Paste Theme',
+                                label: '粘贴主题',
                                 icon: 'file',
                                 onPress: (close) => {
                                     close()
@@ -244,7 +244,7 @@ const ColorSelector = () => {
                                 },
                             },
                             {
-                                label: 'Get Themes',
+                                label: '获取主题',
                                 icon: 'github',
                                 onPress: (close) => {
                                     close()
@@ -265,11 +265,11 @@ const ColorSelector = () => {
                         const data = JSON.parse(e)
                         addCustomColor(data)
                     } catch (e) {
-                        Logger.errorToast('Failed to import: ' + e)
+                        Logger.errorToast('导入失败：' + e)
                     }
                 }}
                 multiline
-                title="Paste Theme Here"
+                title="在此粘贴主题"
             />
 
             <FlatList

@@ -20,9 +20,9 @@ const dbPath = Paths.document.uri + '/SQLite/db.db'
 const exportDB = async (notify: boolean = true) => {
     await localDownload(dbPath.replace('file://', ''))
         .then(() => {
-            if (notify) Logger.infoToast('Download Successful!')
+            if (notify) Logger.infoToast('下载成功！')
         })
-        .catch((e: string) => Logger.errorToast('Failed to copy database: ' + e))
+        .catch((e: string) => Logger.errorToast('复制数据库失败：' + e))
 }
 
 const importDB = async (uri: string, name: string) => {
@@ -41,11 +41,11 @@ const importDB = async (uri: string, name: string) => {
     const dbAppVersion = name.split('-')?.[0]
     if (dbAppVersion !== appVersion) {
         Alert.alert({
-            title: `WARNING: Different Version`,
-            description: `The imported database file has a different app version (${dbAppVersion}) to installed version (${appVersion}).\n\nImporting this database may break or corrupt the database. It is recommended to use the same app version.`,
+            title: `警告：版本不同`,
+            description: `导入的数据库文件应用版本（${dbAppVersion}）与当前安装版本（${appVersion}）不同。\n\n导入此数据库可能导致数据损坏。建议使用相同版本的应用。`,
             buttons: [
-                { label: 'Cancel' },
-                { label: 'Import Anyways', onPress: copyDB, type: 'warning' },
+                { label: '取消' },
+                { label: '仍然导入', onPress: copyDB, type: 'warning' },
             ],
         })
     } else copyDB()
@@ -55,7 +55,7 @@ const DatabaseSettings = () => {
     const { color, spacing } = Theme.useTheme()
     return (
         <View style={{ rowGap: 8 }}>
-            <SectionTitle>Database Management</SectionTitle>
+            <SectionTitle>数据库管理</SectionTitle>
 
             <Text
                 style={{
@@ -63,36 +63,36 @@ const DatabaseSettings = () => {
                     paddingBottom: spacing.xs,
                     marginBottom: spacing.m,
                 }}>
-                WARNING: ensure imported database is from the same app version!
+                警告：请确保导入的数据库来自相同的应用版本！
             </Text>
             <ThemedButton
-                label="Export Database"
+                label="导出数据库"
                 variant="secondary"
                 onPress={() => {
                     Alert.alert({
-                        title: `Export Database`,
-                        description: `Are you sure you want to export the database file?\n\nIt will automatically be downloaded to Downloads`,
+                        title: `导出数据库`,
+                        description: `确定要导出数据库文件吗？\n\n文件将自动下载到 Downloads 文件夹`,
                         buttons: [
-                            { label: 'Cancel' },
-                            { label: 'Export Database', onPress: exportDB },
+                            { label: '取消' },
+                            { label: '导出数据库', onPress: exportDB },
                         ],
                     })
                 }}
             />
 
             <ThemedButton
-                label="Import Database"
+                label="导入数据库"
                 variant="secondary"
                 onPress={async () => {
                     getDocumentAsync({ type: ['application/*'] }).then(async (result) => {
                         if (result.canceled) return
                         Alert.alert({
-                            title: `Import Database`,
-                            description: `Are you sure you want to import this database? This may will destroy the current database!\n\nA backup will automatically be downloaded.\n\nApp will restart automatically`,
+                            title: `导入数据库`,
+                            description: `确定要导入此数据库吗？这将覆盖当前数据库！\n\n系统会自动备份。\n\n应用将自动重启。`,
                             buttons: [
-                                { label: 'Cancel' },
+                                { label: '取消' },
                                 {
-                                    label: 'Import',
+                                    label: '导入',
                                     onPress: () =>
                                         importDB(result.assets[0].uri, result.assets[0].name),
                                     type: 'warning',

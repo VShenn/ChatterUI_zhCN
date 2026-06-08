@@ -13,20 +13,20 @@ const GeneratingSettings = () => {
     )
     return (
         <View style={{ rowGap: 8 }}>
-            <SectionTitle>Generation</SectionTitle>
+            <SectionTitle>生成</SectionTitle>
 
             <ThemedSwitch
-                label="Print Context"
+                label="打印上下文"
                 value={printContext}
                 onChangeValue={setPrintContext}
-                description="Prints the generation context to logs for debugging"
+                description="将生成上下文打印到日志，用于调试"
             />
 
             <ThemedSwitch
-                label="Bypass Context Length"
+                label="忽略上下文长度限制"
                 value={bypassContextLength}
                 onChangeValue={setBypassContextLength}
-                description="Ignores context length limits when building prompts"
+                description="构建提示时忽略上下文长度限制"
             />
         </View>
     )

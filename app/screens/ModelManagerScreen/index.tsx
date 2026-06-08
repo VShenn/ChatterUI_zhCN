@@ -42,11 +42,11 @@ const ModelManagerScreen = () => {
 
     const data = [
         {
-            title: 'Models',
+            title: '模型',
             data: modelList,
         },
         {
-            title: 'Multimodal Adapters',
+            title: '多模态适配器',
             data: mmprojList,
         },
     ]
@@ -60,7 +60,7 @@ const ModelManagerScreen = () => {
                 paddingBottom: spacing.xl2,
                 flex: 1,
             }}>
-            <HeaderTitle title={showSettings ? 'Model Settings' : 'Models'} />
+            <HeaderTitle title={showSettings ? '模型设置' : '模型'} />
             <HeaderButton
                 headerRight={() =>
                     !showSettings && (
@@ -129,7 +129,7 @@ const ModelManagerScreen = () => {
                 />
             )}
             <ThemedButton
-                label={showSettings ? 'Back To Models' : 'Show Settings'}
+                label={showSettings ? '返回模型列表' : '显示设置'}
                 onPress={() => setShowSettings(!showSettings)}
             />
         </SafeAreaView>

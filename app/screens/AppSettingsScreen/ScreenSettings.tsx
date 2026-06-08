@@ -12,17 +12,17 @@ const ScreenSettings = () => {
     const [keepAwake, setKeepAwake] = useMMKVBoolean(AppSettings.KeepAwake)
     return (
         <View style={{ rowGap: 8 }}>
-            <SectionTitle>Screen</SectionTitle>
+            <SectionTitle>屏幕</SectionTitle>
             <ThemedSwitch
-                label="Unlock Orientation"
-                description="Allows landscape on phones (App restart required)"
+                label="解锁方向"
+                description="允许手机横屏（需要重启应用）"
                 value={unlockOrientation}
                 onChangeValue={setUnlockOrientation}
             />
 
             <ThemedSwitch
-                label="Keep Awake"
-                description="Keeps app awake in foreground"
+                label="保持唤醒"
+                description="应用在前台时保持屏幕常亮"
                 value={keepAwake}
                 onChangeValue={(value) => {
                     setKeepAwake(value)

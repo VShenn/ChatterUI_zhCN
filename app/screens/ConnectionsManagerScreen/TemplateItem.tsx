@@ -20,12 +20,12 @@ const TemplateItem: React.FC<TemplateItemProps> = ({ item, index }) => {
 
     const handleDelete = () => {
         Alert.alert({
-            title: 'Delete Template',
-            description: `Are you sure you want to delete "${item.name}"?`,
+            title: '删除模板',
+            description: `确定要删除“${item.name}”吗？`,
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Delete Template',
+                    label: '删除模板',
                     onPress: () => {
                         removeTemplate(index)
                     },
@@ -37,7 +37,7 @@ const TemplateItem: React.FC<TemplateItemProps> = ({ item, index }) => {
 
     const handleExport = () => {
         saveStringToDownload(JSON.stringify(item), `${item.name}.json`, 'utf8').then(() => {
-            Logger.infoToast(`Saved ${item.name}.json To Downloads`)
+            Logger.infoToast(`已保存 ${item.name}.json 到下载文件夹`)
         })
     }
 

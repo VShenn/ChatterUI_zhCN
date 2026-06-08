@@ -20,7 +20,7 @@ const ModelEmpty = () => {
                     fontStyle: 'italic',
                     fontSize: fontSize.l,
                 }}>
-                No Models Found. Try Importing Some!
+                未找到模型。尝试导入一些吧！
             </Text>
         </View>
     )

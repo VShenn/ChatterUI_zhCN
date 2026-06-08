@@ -29,7 +29,7 @@ const ContextLimitPreview: React.FC<ContextLimitPreviewProps> = ({ generatedLeng
                 borderColor: color.primary._200,
             }}>
             <Text style={{ color: color.text._100 }}>
-                Context Allocation <Text style={{ color: color.text._400 }}>({contextLimit})</Text>
+                上下文分配 <Text style={{ color: color.text._400 }}>({contextLimit})</Text>
             </Text>
             <Progress.Bar
                 progress={limit}
@@ -48,7 +48,7 @@ const ContextLimitPreview: React.FC<ContextLimitPreviewProps> = ({ generatedLeng
                             color: warning ? color.error._300 : color.primary._400,
                         }}
                     />{' '}
-                    Chat Context: {leftover}
+                    聊天上下文：{leftover}
                 </Text>
                 <Text style={{ color: color.text._400 }}>
                     <FontAwesome
@@ -57,12 +57,12 @@ const ContextLimitPreview: React.FC<ContextLimitPreviewProps> = ({ generatedLeng
                             color: genLengthColor,
                         }}
                     />{' '}
-                    Generated: {generatedLength}
+                    已生成：{generatedLength}
                 </Text>
             </View>
             {warning && (
                 <Text style={{ color: color.error._300 }}>
-                    Low Chat Context will forget messages faster
+                    聊天上下文过低将导致消息更快被遗忘
                 </Text>
             )}
         </View>

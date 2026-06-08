@@ -31,7 +31,7 @@ const ConnectionsManagerScreen = () => {
                 paddingBottom: spacing.xl2,
                 flex: 1,
             }}>
-            <HeaderTitle title="API Manager" />
+            <HeaderTitle title="API 管理器" />
             <HeaderButton
                 headerRight={() => (
                     <Pressable
@@ -65,7 +65,7 @@ const ConnectionsManagerScreen = () => {
                             fontStyle: 'italic',
                             marginTop: spacing.l,
                         }}>
-                        No Connections Added
+                        未添加任何连接
                     </Text>
                 </View>
             )}
@@ -75,7 +75,7 @@ const ConnectionsManagerScreen = () => {
                     marginHorizontal: spacing.xl,
                 }}
                 onPress={() => router.push('/screens/ConnectionsManagerScreen/AddConnection')}
-                label="Add Connection"
+                label="添加连接"
             />
         </SafeAreaView>
     )

@@ -34,16 +34,16 @@ const ModelInfoHeader: React.FC<ModelInfoHeaderProps> = ({
         <View style={styles.modelContainer}>
             {!modelImporting && !modelLoading && modelListLength !== 0 && (
                 <Text style={styles.subtitle}>
-                    Model Loaded:{' '}
+                    已加载模型：{' '}
                     <Text style={styles.modelTitle} ellipsizeMode="tail" numberOfLines={1}>
-                        {modelName ?? 'None'}
+                        {modelName ?? '无'}
                     </Text>
                 </Text>
             )}
             {!modelImporting && !modelLoading && modelListLength === 0 && modelUpdatedAt && (
                 <View>
                     <Text style={styles.hint}>
-                        Hint: Press <AntDesign name="file-add" size={16} /> and import a GGUF model!
+                        提示：按 <AntDesign name="file-add" size={16} /> 导入 GGUF 模型！
                     </Text>
                 </View>
             )}
@@ -67,7 +67,7 @@ const ModelInfoHeader: React.FC<ModelInfoHeaderProps> = ({
                             color: color.text._100,
                             textAlign: 'center',
                         }}>
-                        Importing...
+                        导入中...
                     </Text>
                 </View>
             )}

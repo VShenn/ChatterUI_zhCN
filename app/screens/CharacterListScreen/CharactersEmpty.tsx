@@ -22,7 +22,7 @@ const CharactersEmpty = () => {
                     fontStyle: 'italic',
                     fontSize: fontSize.l,
                 }}>
-                No Characters Found. Try Importing Some!
+                未找到角色。尝试导入一些吧！
             </Text>
         </View>
     )

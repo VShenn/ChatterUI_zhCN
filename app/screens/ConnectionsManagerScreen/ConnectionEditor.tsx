@@ -46,7 +46,7 @@ const ConnectionEditor: React.FC<ConnectionEditorProps> = ({
     useEffect(() => {
         const newTemplate = getTemplates().find((item) => item.name === values.configName)
         if (!newTemplate) {
-            Logger.errorToast('Could not get valid template!')
+            Logger.errorToast('无法获取有效的模板！')
             close()
             return
         }
@@ -66,7 +66,7 @@ const ConnectionEditor: React.FC<ConnectionEditorProps> = ({
         const result = await fetch(values.modelEndpoint, { headers: { ...auth } })
         const data = await result.json()
         if (result.status !== 200) {
-            Logger.error(`Could not retrieve models: ${data?.error?.message}`)
+            Logger.error(`无法获取模型：${data?.error?.message}`)
             return
         }
         const models = getNestedValue(data, template.model.modelListParser)
@@ -95,7 +95,7 @@ const ConnectionEditor: React.FC<ConnectionEditorProps> = ({
                         fontWeight: '500',
                         paddingBottom: 16,
                     }}>
-                    Edit Connection
+                    编辑连接
                 </Text>
 
                 <ScrollView
@@ -103,7 +103,7 @@ const ConnectionEditor: React.FC<ConnectionEditorProps> = ({
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ rowGap: 12, paddingBottom: 32 }}>
                     <ThemedTextInput
-                        label="Friendly Name"
+                        label="友好名称"
                         value={values.friendlyName}
                         onChangeText={(value) => {
                             setValues({ ...values, friendlyName: value })
@@ -113,20 +113,20 @@ const ConnectionEditor: React.FC<ConnectionEditorProps> = ({
                     {template.ui.editableCompletionPath && (
                         <View>
                             <ThemedTextInput
-                                label="Completion URL"
+                                label="补全 URL"
                                 value={values.endpoint}
                                 onChangeText={(value) => {
                                     setValues({ ...values, endpoint: value })
                                 }}
                             />
-                            <Text style={styles.hintText}>Note: Use full URL path</Text>
+                            <Text style={styles.hintText}>注意：使用完整的 URL 路径</Text>
                         </View>
                     )}
 
                     {template.ui.editableModelPath && (
                         <View>
                             <ThemedTextInput
-                                label="Model URL"
+                                label="模型 URL"
                                 value={values.modelEndpoint}
                                 onChangeText={(value) => {
                                     setValues({ ...values, modelEndpoint: value })
@@ -151,7 +151,7 @@ const ConnectionEditor: React.FC<ConnectionEditorProps> = ({
                     {template.features.useKey && (
                         <ThemedTextInput
                             secureTextEntry
-                            label="API Key"
+                            label="API 密钥"
                             value={values.key}
                             onChangeText={(value) => {
                                 setValues({ ...values, key: value })
@@ -161,7 +161,7 @@ const ConnectionEditor: React.FC<ConnectionEditorProps> = ({
 
                     {template.features.useModel && (
                         <View style={{ rowGap: 4 }}>
-                            <Text style={styles.title}>Model</Text>
+                            <Text style={styles.title}>模型</Text>
                             <View
                                 style={{
                                     flexDirection: 'row',
@@ -180,7 +180,7 @@ const ConnectionEditor: React.FC<ConnectionEditorProps> = ({
                                             setValues({ ...values, model: item })
                                         }}
                                         search={modelList.length > 10}
-                                        modalTitle="Select Model"
+                                        modalTitle="选择模型"
                                     />
                                 )}
                                 {template.features.multipleModels && (
@@ -195,7 +195,7 @@ const ConnectionEditor: React.FC<ConnectionEditorProps> = ({
                                             setValues({ ...values, model: item })
                                         }}
                                         search={modelList.length > 10}
-                                        modalTitle="Select Model"
+                                        modalTitle="选择模型"
                                     />
                                 )}
                                 <ThemedButton
@@ -213,32 +213,32 @@ const ConnectionEditor: React.FC<ConnectionEditorProps> = ({
                     {template.features.useFirstMessage && (
                         <View>
                             <ThemedTextInput
-                                label="First Message"
+                                label="第一条消息"
                                 value={values.firstMessage}
                                 onChangeText={(value) => {
                                     setValues({ ...values, firstMessage: value })
                                 }}
                             />
                             <Text style={styles.hintText}>
-                                Default first message sent to Claude
+                                发送给 Claude 的默认第一条消息
                             </Text>
                         </View>
                     )}
                     {template.features.usePrefill && (
                         <View>
                             <ThemedTextInput
-                                label="Prefill"
+                                label="预填充"
                                 value={values.prefill}
                                 onChangeText={(value) => {
                                     setValues({ ...values, prefill: value })
                                 }}
                             />
-                            <Text style={styles.hintText}>Prefill before model response</Text>
+                            <Text style={styles.hintText}>模型回复前的预填充文本</Text>
                         </View>
                     )}
                 </ScrollView>
                 <ThemedButton
-                    label="Save Changes"
+                    label="保存更改"
                     onPress={() => {
                         editValue(values, index)
                         close()

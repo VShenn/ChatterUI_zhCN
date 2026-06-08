@@ -62,16 +62,16 @@ const ChatQuickActions: React.FC<ChatActionProps> = ({ index, nowGenerating, isL
     const handleFork = () => {
         if (!chatId) return
         Alert.alert({
-            title: 'Fork Chat',
-            description: 'This will create a clone of this chat from this message',
+            title: '复制聊天',
+            description: '这将从此消息创建一个聊天的副本',
             buttons: [
-                { label: 'Cancel' },
+                { label: '取消' },
                 {
-                    label: 'Fork Chat',
+                    label: '复制聊天',
                     onPress: async () => {
                         const newChatId = await Chats.db.mutate.cloneChatFromId(chatId, index + 1)
                         if (!newChatId) {
-                            Logger.errorToast('Failed to clone chat')
+                            Logger.errorToast('复制聊天失败')
                             return
                         }
                         setShowOptions(undefined)
@@ -186,10 +186,10 @@ const ChatQuickActions: React.FC<ChatActionProps> = ({ index, nowGenerating, isL
                                     if (showOptions) setShowOptions(undefined)
                                     setStringAsync(swipe.swipe)
                                         .then(() => {
-                                            Logger.infoToast('Copied')
+                                            Logger.infoToast('已复制')
                                         })
                                         .catch(() => {
-                                            Logger.errorToast('Failed to copy to clipboard')
+                                            Logger.errorToast('复制到剪贴板失败')
                                         })
                                 }}
                             />
