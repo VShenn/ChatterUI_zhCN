@@ -109,7 +109,7 @@ module.exports = {
                 origin: false,
             },
             eas: {
-                projectId: 'ee607498-375b-40b0-8158-f77ba2988106'   // 新增这一行
+                projectId: '88743607-3379-4a9f-85b2-6eb07b034fb3'   // 新增这一行
             },
         },
     },
