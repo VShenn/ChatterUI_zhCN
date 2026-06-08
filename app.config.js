@@ -87,10 +87,10 @@ module.exports = {
             [
                 'expo-camera',
                 {
-                    cameraPermission: 'Allow ChatterUI to access your camera'，
-                }，
-            ]，
-            ['expo-sqlite'， { withSQLiteVecExtension: true }],
+                    cameraPermission: 'Allow ChatterUI to access your camera',
+                },
+            ],
+            ['expo-sqlite', { withSQLiteVecExtension: true }],
             'expo-localization',
             'expo-router',
             'expo-font',
@@ -109,8 +109,8 @@ module.exports = {
                 origin: false,
             },
             eas: {
-
+                // projectId 已删除，将由 Expo 自动分配
             },
         },
     },
-}
+};
