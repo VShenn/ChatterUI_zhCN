@@ -109,7 +109,7 @@ module.exports = {
                 origin: false,
             },
             eas: {
-                // projectId 已删除，将由 Expo 自动分配
+                projectId: 'ee607498-375b-40b0-8158-f77ba2988106'   // 新增这一行
             },
         },
     },
