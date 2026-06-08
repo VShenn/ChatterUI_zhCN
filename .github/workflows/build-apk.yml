@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build Android APK (Expo)
 
 on:
   push:
@@ -9,31 +9,28 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
       - name: Install dependencies
-        run: |
-          npm install
+        run: npm install
 
-      - name: Setup Java
-        uses: actions/setup-java@v5
+      - name: Setup Expo
+        uses: expo/expo-github-action@v8
         with:
-          distribution: 'temurin'
-          java-version: '17'
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Build Android APK
-        run: |
-          cd android
-          chmod +x gradlew
-          ./gradlew assembleRelease
+        run: expo build:android --type apk --no-wait
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v5
-        with:
-          name: app-release
-          path: android/app/build/outputs/apk/release/app-release.apk
+      - name: Wait for build to finish
+        run: |
+          npm install -g eas-cli
+          eas build --platform android --profile preview --wait
+        # 或者如果项目有 eas.json，可以直接用下面命令（二选一）
+        # 这里推荐使用 eas build，因为 expo build:android 即将弃用
