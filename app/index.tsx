@@ -48,16 +48,15 @@ const Home = () => {
         return (
             <View style={styles.centeredContainer}>
                 <HeaderTitle />
-                <Text style={styles.title}>Database Migration Failed!</Text>
+                <Text style={styles.title}>数据库迁移失败！</Text>
                 <Text style={styles.errorLog}>{error.message}</Text>
                 <Text style={styles.subtitle}>
-                    If you are seeing this, something has gone terribly wrong. Report this error
-                    below, include a screenshot of the log above.
+                    如果看到此消息，说明出现了严重错误。请在下方报告此错误，并附上上方日志的截图。
                 </Text>
                 <Text style={styles.subtitle} />
                 <ThemedButton
                     variant="secondary"
-                    label="Github Repository"
+                    label="GitHub 仓库"
                     iconName="github"
                     iconSize={20}
                     onPress={() => {
@@ -77,9 +76,9 @@ const Home = () => {
                     style={{ marginBottom: 12 }}
                     color={color.text._500}
                 />
-                <Text style={styles.title}>Authentication Required</Text>
+                <Text style={styles.title}>需要身份验证</Text>
                 <TouchableOpacity onPress={retry} style={styles.button}>
-                    <Text style={styles.buttonText}>Try Again</Text>
+                    <Text style={styles.buttonText}>重试</Text>
                 </TouchableOpacity>
             </View>
         )
