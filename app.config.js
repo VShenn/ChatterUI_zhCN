@@ -3,7 +3,7 @@ const IS_DEV = process.env.APP_VARIANT === 'development'
 module.exports = {
     expo: {
         name: IS_DEV ? 'ChatterUI (DEV)' : 'ChatterUI',
-        owner: 'VShenn',
+        owner: 'vshenn',
         newArchEnabled: true,
         slug: 'ChatterUI_zhCN',
         version: '0.9.0',
