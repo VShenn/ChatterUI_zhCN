@@ -26,8 +26,8 @@ const DropdownSheet = <T,>({
     style,
     selected = undefined,
     data = [],
-    placeholder = 'Select Item...',
-    modalTitle = 'Select Item',
+    placeholder = '请选择…',
+    modalTitle = '请选择',
     labelExtractor = (data) => {
         return data as string
     },
@@ -72,11 +72,11 @@ const DropdownSheet = <T,>({
                         )}
                     />
                 ) : (
-                    <Text style={styles.emptyText}>No Items</Text>
+                    <Text style={styles.emptyText}>无项目</Text>
                 )}
                 {search && (
                     <TextInput
-                        placeholder="Filter..."
+                        placeholder="筛选…"
                         placeholderTextColor={theme.color.text._300}
                         style={styles.searchBar}
                         value={searchFilter}

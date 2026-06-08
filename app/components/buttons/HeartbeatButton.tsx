@@ -31,9 +31,9 @@ const HeartbeatButton: React.FC<HeartbeatButtonProps> = ({
             return ''
         }
     },
-    messageNeutral = 'Not Connected',
-    messageError = 'Failed To Connect',
-    messageOK = 'Connected',
+    messageNeutral = '未连接',
+    messageError = '连接失败',
+    messageOK = '已连接',
     headers = {},
     callback = () => {},
 }) => {
@@ -90,7 +90,7 @@ const HeartbeatButton: React.FC<HeartbeatButtonProps> = ({
 
     return (
         <View style={{ flexDirection: 'row', marginTop: 8 }}>
-            <ThemedButton label="Test" onPress={handleCheck} variant="secondary" />
+            <ThemedButton label="测试" onPress={handleCheck} variant="secondary" />
             <View
                 style={{
                     marginLeft: 4,

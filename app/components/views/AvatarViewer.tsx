@@ -80,7 +80,7 @@ const AvatarViewer: React.FC<AvatarViewerProps> = ({ editorButton = true }) => {
                     <View style={styles.buttonContainer}>
                         {editorButton && (
                             <ThemedButton
-                                label="Edit Character"
+                                label="编辑角色"
                                 iconName="edit"
                                 iconSize={18}
                                 variant="secondary"
@@ -96,7 +96,7 @@ const AvatarViewer: React.FC<AvatarViewerProps> = ({ editorButton = true }) => {
                         )}
 
                         <ThemedButton
-                            label="Close"
+                            label="关闭"
                             iconName="close"
                             iconSize={18}
                             variant="secondary"

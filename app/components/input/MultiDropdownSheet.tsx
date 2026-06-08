@@ -43,8 +43,8 @@ const MultiDropdownSheet = <T,>({
     style,
     selected,
     data = [],
-    placeholder = 'Select Item...',
-    modalTitle = 'Select Item',
+    placeholder = '请选择…',
+    modalTitle = '请选择',
     labelExtractor = (data) => {
         return data as string
     },
@@ -78,8 +78,8 @@ const MultiDropdownSheet = <T,>({
                     <Text style={styles.modalTitle}>{modalTitle}</Text>
                     <Text style={styles.counterText}>
                         {selected.length > 0
-                            ? `Selected ${selected.length} item${selected.length > 1 ? 's' : ''}`
-                            : 'No items selected'}
+                            ? `已选择 ${selected.length} 项`
+                            : '未选择任何项目'}
                     </Text>
                 </View>
                 {items.length > 0 ? (
@@ -117,11 +117,11 @@ const MultiDropdownSheet = <T,>({
                         )}
                     />
                 ) : (
-                    <Text style={styles.emptyText}>No Items</Text>
+                    <Text style={styles.emptyText}>无项目</Text>
                 )}
                 {search && (
                     <TextInput
-                        placeholder="Filter..."
+                        placeholder="筛选…"
                         placeholderTextColor={color.text._300}
                         style={styles.searchBar}
                         value={searchFilter}
@@ -131,7 +131,7 @@ const MultiDropdownSheet = <T,>({
             </BottomSheet>
             <Pressable style={[style, styles.button]} onPress={() => setShowList(true)}>
                 {selected && selected.length > 0 && (
-                    <Text style={styles.buttonText}>{selected.length} Items Selected</Text>
+                    <Text style={styles.buttonText}>已选择 {selected.length} 项</Text>
                 )}
                 {(!selected || selected.length === 0) && (
                     <Text style={styles.placeholderText}>{placeholder}</Text>

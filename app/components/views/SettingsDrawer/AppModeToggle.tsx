@@ -9,14 +9,14 @@ const AppModeToggle = () => {
     return (
         <HorizontalSelector
             style={{ flex: 0, paddingBottom: 4, paddingHorizontal: 8 }}
-            label="App Mode"
+            label="应用模式"
             values={[
                 {
                     value: 'local',
-                    label: 'Local',
+                    label: '本地',
                     icon: Platform.OS === 'android' ? 'phone-android' : 'phone-iphone',
                 },
-                { value: 'remote', label: 'Remote', icon: 'cloud' },
+                { value: 'remote', label: '远程', icon: 'cloud' },
             ]}
             selected={appMode}
             onPress={setAppMode}

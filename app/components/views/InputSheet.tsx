@@ -87,7 +87,7 @@ const InputSheet: React.FC<InputSheetProps> = ({
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                     }}>
-                    <ThemedButton label="Cancel" variant="secondary" onPress={handleClose} />
+                    <ThemedButton label="取消" variant="secondary" onPress={handleClose} />
                     <View
                         style={{
                             flexDirection: 'row',
@@ -111,7 +111,7 @@ const InputSheet: React.FC<InputSheetProps> = ({
                         />
                     </View>
                     <ThemedButton
-                        label="Confirm"
+                        label="确认"
                         onPress={() => {
                             const result = verifyText(text)
                             if (result) setErrorMessage(result)

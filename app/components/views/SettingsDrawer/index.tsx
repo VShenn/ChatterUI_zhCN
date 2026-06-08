@@ -32,8 +32,8 @@ const SettingsDrawer = () => {
                     marginTop: spacing.l,
                     marginBottom: spacing.xl2,
                 }}>
-                {__DEV__ && 'DEV BUILD\t'}
-                {devMode && 'DEV MODE\t'}
+                {__DEV__ && '开发构建\t'}
+                {devMode && '开发模式\t'}
                 {'v' + appConfig.expo.version}
             </Text>
             <View style={{ marginHorizontal: spacing.xl2 }}>

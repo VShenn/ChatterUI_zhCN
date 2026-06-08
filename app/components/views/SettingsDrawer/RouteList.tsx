@@ -77,12 +77,12 @@ const useStyles = () => {
 
 const getPaths = (remote: boolean): ButtonData[] => [
     {
-        name: 'Sampler',
+        name: '采样器',
         path: '/screens/SamplerManagerScreen',
         icon: 'control',
     },
     {
-        name: 'Formatting',
+        name: '格式化',
         path: '/screens/FormattingManagerScreen',
         icon: 'profile',
     },
@@ -93,7 +93,7 @@ const getPaths = (remote: boolean): ButtonData[] => [
               icon: 'link',
           }
         : {
-              name: 'Models',
+              name: '模型',
               path: '/screens/ModelManagerScreen',
               icon: 'branches',
           },
@@ -103,17 +103,17 @@ const getPaths = (remote: boolean): ButtonData[] => [
         icon: 'sound',
     },
     {
-        name: 'Logs',
+        name: '日志',
         path: '/screens/LogsScreen',
         icon: 'code',
     },
     {
-        name: 'About',
+        name: '关于',
         path: '/screens/AboutScreen',
         icon: 'info-circle',
     },
     {
-        name: 'Settings',
+        name: '设置',
         path: '/screens/AppSettingsScreen',
         icon: 'setting',
     },
@@ -125,11 +125,11 @@ const paths_dev: ButtonData[] = [
         path: '/HFTest',
     },*/
     {
-        name: '[DEV] Components',
+        name: '[DEV] 组件',
         path: '/screens/ComponentTestScreen',
     },
     {
-        name: '[DEV] ColorTest',
+        name: '[DEV] 颜色测试',
         path: '/screens/ColorTestScreen',
     },
     {

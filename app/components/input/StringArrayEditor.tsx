@@ -1,213 +1,210 @@
-import { AntDesign } from '@expo/vector-icons'
-import React, { useState } from 'react'
-import {
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
-    StyleSheet,
-    ViewStyle,
-    ScrollView,
-} from 'react-native'
+import { Entypo } from '@expo/vector-icons'
+import { useState } from 'react'
+import { FlatList, Pressable, StyleSheet, Text, TextInput, View, ViewStyle } from 'react-native'
 
-import ThemedButton from '@components/buttons/ThemedButton'
-import { Logger } from '@lib/state/Logger'
+import BottomSheet from '@components/views/BottomSheet'
 import { Theme } from '@lib/theme/ThemeManager'
 
-type StringArrayEditorProps = {
-    containerStyle?: ViewStyle
-    label?: string
-    value: string[]
-    setValue: (newdata: string[]) => void
-    allowDuplicates?: boolean
-    placeholder?: string
-    replaceNewLine?: string
-    allowBlank?: string
-    suggestions?: string[]
-    filterOnly?: boolean
-    showSuggestionsOnEmpty?: boolean
+type DropdownItemProps = {
+    label: string
+    active: boolean
+    onValueChange: (b: boolean) => void
 }
 
-const StringArrayEditor: React.FC<StringArrayEditorProps> = ({
-    containerStyle = undefined,
-    label = undefined,
-    value,
-    setValue,
-    replaceNewLine = undefined,
-    allowDuplicates = false,
-    placeholder = 'Enter value...',
-    allowBlank = false,
-    suggestions = [],
-    filterOnly = false,
-    showSuggestionsOnEmpty = false,
-}) => {
-    const { color, borderRadius } = Theme.useTheme()
-    const styles = useStyles()
-    const [newData, setNewData] = useState('')
-    const filteredSuggestions = suggestions.filter(
-        (item) => item.toLowerCase().includes(newData.toLowerCase()) && !value.includes(item)
-    )
-    const handleSplice = (index: number) => {
-        setValue(value.filter((item, index2) => index2 !== index))
-    }
-
-    const addData = (newData: string) => {
-        if (newData === '') {
-            Logger.warnToast('Value cannot be empty')
-            return
-        }
-        if (value.includes(newData)) {
-            Logger.warnToast('Value already exists')
-            return
-        }
-        setNewData('')
-        setValue([...value, newData])
-    }
-
+const DropdownItem: React.FC<DropdownItemProps> = ({ label, active, onValueChange }) => {
+    const styles = useDropdownStyles()
     return (
-        <View style={[styles.mainContainer, containerStyle]}>
-            {label && <Text style={styles.title}>{label}</Text>}
+        <Pressable
+            style={active ? styles.listItemSelected : styles.listItem}
+            onPress={() => {
+                onValueChange(!active)
+            }}>
+            <Text style={styles.listItemText}>{label}</Text>
+        </Pressable>
+    )
+}
 
-            <View style={styles.contentContainer}>
-                {value.length !== 0 && (
-                    <View style={styles.tagContainer}>
-                        {value.map((item, index) => (
-                            <TouchableOpacity
-                                key={index}
-                                style={styles.tag}
-                                onPress={() => handleSplice(index)}>
-                                <Text style={styles.tagText}>
-                                    {item.replaceAll('\n', replaceNewLine ?? '\n')}
-                                </Text>
-                                <AntDesign name="close" size={16} color={color.text._400} />
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                )}
-                {(newData || showSuggestionsOnEmpty) && filteredSuggestions.length > 0 && (
-                    <View
-                        style={{
-                            marginBottom: 4,
-                            flexDirection: 'row',
-                            columnGap: 4,
-                            alignItems: 'center',
-                        }}>
-                        {!filterOnly && (
-                            <Text style={{ color: color.text._400, marginBottom: 4 }}>
-                                Suggestions
-                            </Text>
-                        )}
-                        <ScrollView
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            nestedScrollEnabled
-                            style={{
-                                borderRadius: borderRadius.m,
-                            }}
-                            contentContainerStyle={{
-                                backgroundColor: color.neutral._100,
-                                flexDirection: 'row',
-                                columnGap: 4,
-                            }}>
-                            {filteredSuggestions.map((item, index) => (
-                                <ThemedButton
-                                    buttonStyle={{ paddingVertical: 4 }}
-                                    onPress={() => addData(item)}
-                                    variant="secondary"
-                                    label={item}
-                                    key={index}
-                                />
-                            ))}
-                        </ScrollView>
-                    </View>
-                )}
+type DropdownSheetProps<T> = {
+    containerStyle?: ViewStyle
+    style?: ViewStyle
+    data: T[]
+    selected: T[]
+    onChangeValue: (data: T[]) => void
+    labelExtractor: (data: T) => string
+    search?: boolean
+    placeholder?: string
+    modalTitle?: string
+    closeOnSelect?: boolean
+}
 
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        style={styles.input}
-                        value={newData}
-                        onChangeText={setNewData}
-                        keyboardType="default"
-                        multiline
-                        placeholder={placeholder}
-                        placeholderTextColor={color.text._700}
-                    />
+const MultiDropdownSheet = <T,>({
+    containerStyle = undefined,
+    onChangeValue,
+    style,
+    selected,
+    data = [],
+    placeholder = '请选择…',
+    modalTitle = '请选择',
+    labelExtractor = (data) => {
+        return data as string
+    },
+    search = false,
+    closeOnSelect = true,
+}: DropdownSheetProps<T>) => {
+    const styles = useDropdownStyles()
+    const { color, spacing } = Theme.useTheme()
+    const [showList, setShowList] = useState(false)
+    const [searchFilter, setSearchFilter] = useState('')
 
-                    {!filterOnly && <ThemedButton label="Add" onPress={() => addData(newData)} />}
+    const items = data.filter((item) =>
+        labelExtractor(item)
+            ?.toLowerCase()
+            .includes(searchFilter.toLowerCase() ?? true)
+    )
+    return (
+        <View style={containerStyle}>
+            <BottomSheet
+                visible={showList}
+                setVisible={setShowList}
+                onClose={() => {
+                    setSearchFilter('')
+                }}>
+                <View
+                    style={{
+                        marginBottom: spacing.xl2,
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                    }}>
+                    <Text style={styles.modalTitle}>{modalTitle}</Text>
+                    <Text style={styles.counterText}>
+                        {selected.length > 0
+                            ? `已选择 ${selected.length} 项`
+                            : '未选择任何项目'}
+                    </Text>
                 </View>
-            </View>
+                {items.length > 0 ? (
+                    <FlatList
+                        contentContainerStyle={{ rowGap: 2 }}
+                        showsVerticalScrollIndicator={false}
+                        data={items}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({ item, index }) => (
+                            <DropdownItem
+                                label={labelExtractor(item)}
+                                active={selected?.some(
+                                    (e) => labelExtractor(e) === labelExtractor(item)
+                                )}
+                                onValueChange={(active) => {
+                                    if (!active && selected.length > 0) {
+                                        const data = selected.filter(
+                                            (e) => labelExtractor(e) !== labelExtractor(item)
+                                        )
+                                        onChangeValue(data)
+                                    } else {
+                                        // we duplicate for a fresh reference
+                                        const data = [...selected]
+                                        if (
+                                            selected.some(
+                                                (e) => labelExtractor(e) === labelExtractor(item)
+                                            )
+                                        )
+                                            return
+                                        data.push(item)
+                                        onChangeValue(data)
+                                    }
+                                }}
+                            />
+                        )}
+                    />
+                ) : (
+                    <Text style={styles.emptyText}>无项目</Text>
+                )}
+                {search && (
+                    <TextInput
+                        placeholder="筛选…"
+                        placeholderTextColor={color.text._300}
+                        style={styles.searchBar}
+                        value={searchFilter}
+                        onChangeText={setSearchFilter}
+                    />
+                )}
+            </BottomSheet>
+            <Pressable style={[style, styles.button]} onPress={() => setShowList(true)}>
+                {selected && selected.length > 0 && (
+                    <Text style={styles.buttonText}>已选择 {selected.length} 项</Text>
+                )}
+                {(!selected || selected.length === 0) && (
+                    <Text style={styles.placeholderText}>{placeholder}</Text>
+                )}
+                <Entypo name="chevron-down" color={color.primary._800} size={18} />
+            </Pressable>
         </View>
     )
 }
 
-export default StringArrayEditor
+export default MultiDropdownSheet
 
-const useStyles = () => {
+export const useDropdownStyles = () => {
     const { color, spacing, borderRadius } = Theme.useTheme()
-
     return StyleSheet.create({
-        mainContainer: {
-            flex: 1,
-        },
-
-        contentContainer: {
-            borderWidth: 1,
-            color: color.text._100,
-            borderColor: color.neutral._300,
-            paddingHorizontal: spacing.s,
-            paddingVertical: spacing.s,
+        button: {
+            paddingHorizontal: spacing.xl,
+            paddingVertical: spacing.m,
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             borderRadius: borderRadius.m,
+            backgroundColor: color.primary._300,
         },
-
-        title: {
+        buttonText: {
             color: color.text._100,
-            marginBottom: spacing.m,
+        },
+        placeholderText: {
+            color: color.text._300,
         },
 
-        tagContainer: {
-            flexDirection: 'row',
-            columnGap: spacing.m,
-            rowGap: spacing.m,
-            paddingBottom: spacing.m,
-            marginBottom: spacing.m,
-            borderBottomWidth: 1,
-            borderColor: color.primary._200,
-            flexWrap: 'wrap',
+        modalTitle: {
+            color: color.text._300,
+            fontSize: 20,
+            fontWeight: '500',
+            paddingBottom: spacing.xl2,
         },
 
-        tag: {
-            borderColor: color.primary._700,
-            borderWidth: 1,
-            paddingVertical: 4,
-            paddingLeft: 12,
-            paddingRight: 8,
-            borderRadius: 8,
-            flexDirection: 'row',
-            alignItems: 'center',
+        listItem: {
+            paddingVertical: spacing.xl,
+            paddingHorizontal: spacing.xl2,
         },
 
-        tagText: {
-            color: color.text._100,
-            marginRight: 8,
+        listItemSelected: {
+            paddingVertical: spacing.xl,
+            paddingHorizontal: spacing.xl2,
+            backgroundColor: color.primary._200,
+            borderRadius: borderRadius.xl,
         },
 
-        emptyTag: {
+        emptyText: {
             color: color.text._400,
-            paddingVertical: 4,
-            paddingHorizontal: 12,
-            fontStyle: 'italic',
+            padding: spacing.xl,
         },
 
-        input: {
-            flex: 1,
+        listItemText: {
+            color: color.text._200,
+            fontSize: 16,
+        },
+
+        searchBar: {
+            marginTop: spacing.l,
+            borderRadius: borderRadius.m,
+            padding: spacing.l,
+            backgroundColor: color.neutral._200,
             color: color.text._100,
-            paddingHorizontal: 8,
-            borderRadius: 8,
+            textAlignVertical: 'center',
         },
 
-        inputContainer: {
-            flexDirection: 'row',
-            alignItems: 'center',
+        counterText: {
+            color: color.text._800,
+            fontSize: 14,
+            paddingBottom: spacing.xl2,
         },
     })
 }
